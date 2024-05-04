@@ -69,6 +69,12 @@ body{
 .socials-row>a:hover{
     background-color: var(--btn-bg);
 }
+.socials-row a{
+    color: var(--text-gray);
+    font-size: 1.10rem;
+    font-weight: normal; 
+
+}
 .form-welcome-row{
     margin-bottom: 1rem;
 }

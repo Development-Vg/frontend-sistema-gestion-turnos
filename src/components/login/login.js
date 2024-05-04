@@ -8,12 +8,13 @@ function Login() {
         
          <div className="form-wrapper" >
             <main className="form-side">
-                <a href='http://localhost:3000/login' title='logo'> 
+                <a href='https://www.uptc.edu.co/sitio' title='logo'> 
+                    <img src='./logo.png' alt='logo' />
                 </a>
                 <form className="my-form">
                     <div className='form-welcome-row'>
                         <h1>Welcome back!</h1>
-                        <h1>Login whit you account!</h1>
+                        <h2>Login whit you account!</h2>
                     </div>
                     <div className='socials-row'>
                         <a href='https://takeout.google.com/?hl=es' title='use google'>
@@ -52,7 +53,7 @@ function Login() {
                         <div className='my-form__actions'>
                             <div className='my-form__row'>
                                 <span>Don't have an account?</span>
-                                <a href='#' title='reset password'>Sind up Now </a>
+                                <a href='https://www.uptc.edu.co/sitio' title='reset password'>Sind up Now </a>
 
                             </div>
                         </div>
