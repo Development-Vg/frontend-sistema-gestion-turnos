@@ -8,26 +8,27 @@ function Login() {
         
          <div className="form-wrapper" >
             <main className="form-side">
-                <a href='#' title='logo'></a>
+                <a href='http://localhost:3000/login' title='logo'> 
+                </a>
                 <form className="my-form">
                     <div className='form-welcome-row'>
                         <h1>Welcome back!</h1>
                         <h1>Login whit you account!</h1>
                     </div>
                     <div className='socials-row'>
-                        <a href='#' title='use google'>
+                        <a href='https://takeout.google.com/?hl=es' title='use google'>
                             <img src='https://img.icons8.com/color/48/000000/google-logo.png' alt='google logo' />
                             Continue with Google
                         </a>
                     </div>
                     <div className='socials-row'>
-                        <a href='#' title='use gitHub'>
+                        <a href='https://github.com/login' title='use gitHub'>
                             <img src='https://img.icons8.com/ios-glyphs/30/000000/github.png' alt='gitHub logo' />
                             Continue with gitHub
                         </a>
                     </div>
                     <div className='socials-row'>
-                        <a href='#' title='use facebook'>
+                        <a href='https://es-la.facebook.com/login/device-based/regular/login/' title='use facebook'>
                             <img src='https://img.icons8.com/color/48/000000/facebook.png' alt='facebook logo' />
                             Continue with facebook
                         </a>
@@ -48,25 +49,19 @@ function Login() {
                     </div>
                     <div>
                         <button className='my-form__button' type='submit'>Sign In</button>
-                        <div className='my-form__row'>
-                            <span>Don't have an account?</span>
-                            <a href='#' title='reset password'>Sind up Now </a>
+                        <div className='my-form__actions'>
+                            <div className='my-form__row'>
+                                <span>Don't have an account?</span>
+                                <a href='#' title='reset password'>Sind up Now </a>
 
+                            </div>
                         </div>
+                        
                     </div>
                 </form>
             </main>
-            <aside className='info-aside'>
-                <div className='blockquote-wrapper'>
-                    <img src=''  alt='Returns' className='returns'></img>
-                    <blockquote>
-
-                    </blockquote>
-                    <div className='author'>
-                        <img src='hola' alt='Avatar' className='avatar'></img>
-                        <span className='author-name'>nnn</span>
-                    </div>
-                </div>
+            <aside className='info-side'>
+                
             </aside>
          </div>
     );
