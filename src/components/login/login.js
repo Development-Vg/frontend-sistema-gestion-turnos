@@ -1,14 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './login.css';
+import Keycloak from 'keycloak-js';
+
+const keycloakConfig = {
+    url: 'http://localhost:9090',
+    realm: 'TurnsManagementApp',
+    clientId: 'frontend-SDGT',
+    clientSecret: ''
+}
+
 
 function Login() {
    
+    const [keycloak, setKeycloak] = useState(null);
+    useEffect(() => {
+        const initKeycloak = async () => {
+            const keycloakInstance = new Keycloak(keycloakConfig);
+            try {
+                await keycloakInstance.init({
+                    onLoad: 'login-required',
+                });
+                setKeycloak(keycloakInstance);
+                if (keycloakInstance.authenticated) {
+                    console.log(keycloakInstance);
+                }
+            } catch (error) {
+                console.error('Auth error', error);
+            }
+        }
+        initKeycloak();
+    }, []);
 
+    const handleLogout = () => {
+        if (keycloak) {
+            keycloak.logout();
+        }
+    }
     return (
-        
-         <div className="form-wrapper" >
+
+        <div className="form-wrapper" >
             <main className="form-side">
-                <a href='https://www.uptc.edu.co/sitio' title='logo'> 
+                <a href='https://www.uptc.edu.co/sitio' title='logo'>
                     <img src='./logo.png' alt='logo' />
                 </a>
                 <form className="my-form">
@@ -44,8 +76,8 @@ function Login() {
                     </div>
                     <div className='text-field'>
                         <label for='email'>Password</label>
-                        <input id='password'type='email' name='email' placeholder='you password' required
-                        pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$'></input>
+                        <input id='password' type='email' name='email' placeholder='you password' required
+                            pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$'></input>
                         <div className='error-message'>minimun 8 characters</div>
                     </div>
                     <div>
@@ -57,14 +89,14 @@ function Login() {
 
                             </div>
                         </div>
-                        
+
                     </div>
                 </form>
             </main>
             <aside className='info-side'>
-                
+
             </aside>
-         </div>
+        </div>
     );
 }
 
