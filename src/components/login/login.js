@@ -1,71 +1,101 @@
 import React from 'react';
 import './login.css';
 
+import { useState } from 'react';
+import Example1 from '../registry/registry';
+import { Row } from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
+
 function Login() {
-   
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
-        
-         <div className="form-wrapper" >
-            <main className="form-side">
-                <a href='https://www.uptc.edu.co/sitio' title='logo'> 
-                    <img src='./logo.png' alt='logo' />
-                </a>
-                <form className="my-form">
-                    <div className='form-welcome-row'>
-                        <h1>Welcome back!</h1>
-                        <h2>Login whit you account!</h2>
-                    </div>
-                    <div className='socials-row'>
-                        <a href='https://takeout.google.com/?hl=es' title='use google'>
-                            <img src='https://img.icons8.com/color/48/000000/google-logo.png' alt='google logo' />
-                            Continue with Google
-                        </a>
-                    </div>
-                    <div className='socials-row'>
-                        <a href='https://github.com/login' title='use gitHub'>
-                            <img src='https://img.icons8.com/ios-glyphs/30/000000/github.png' alt='gitHub logo' />
-                            Continue with gitHub
-                        </a>
-                    </div>
-                    <div className='socials-row'>
-                        <a href='https://es-la.facebook.com/login/device-based/regular/login/' title='use facebook'>
-                            <img src='https://img.icons8.com/color/48/000000/facebook.png' alt='facebook logo' />
-                            Continue with facebook
-                        </a>
-                    </div>
-                    <div className='divider'>
-                        <div className='divider-line'></div>or<div className='divider-line'></div>
-                    </div>
-                    <div className='text-field'>
-                        <label for='email'>Email</label>
-                        <input type='email' id='email' name='email' placeholder='you@example' required></input>
-                        <div className='error-message'>Email incorrect format</div>
-                    </div>
-                    <div className='text-field'>
-                        <label for='email'>Password</label>
-                        <input id='password'type='email' name='email' placeholder='you password' required
-                        pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$'></input>
-                        <div className='error-message'>minimun 8 characters</div>
-                    </div>
-                    <div>
-                        <button className='my-form__button' type='submit'>Sign In</button>
-                        <div className='my-form__actions'>
-                            <div className='my-form__row'>
-                                <span>Don't have an account?</span>
-                                <a href='https://www.uptc.edu.co/sitio' title='reset password'>Sind up Now </a>
+        <>
+            <div className="wrapper fadeInDown">
+                <div className="container main">
+                    <div className="row custom-row">
+                        <div className="col-md-6 image">
+                            {/* Aquí puedes colocar la imagen si la necesitas */}
+                        </div>
+                        <div className="col-md-6 right">
+                            <div className="input-box">
+                                <h1>SDGT</h1>
+                                <div className="input-field">
+                                    <input type="text" className="input" id="username" required autoComplete="off" />
+                                    <label htmlFor="username">Usuario</label>
+                                </div>
+                                <div className="input-field">
+                                    <input type="password" className="input" id="password" required />
+                                    <label htmlFor="password">Contraseña</label>
+                                </div>
+                                <div className="input-field mb-4">
+                                    <input type="submit" className="submit" value="Iniciar sesión" />
+                                </div>
 
+
+                                <Row>
+
+                                    <Col xs={4}>
+                                        <div className='socials-row mb-4 '>
+                                            <a href='https://takeout.google.com/?hl=es' title='use google'>
+                                                {/* <img src='https://img.icons8.com/color/48/000000/google-logo.png' alt='google logo' /> */}
+                                                Continue with Google
+                                            </a>
+                                        </div>
+
+
+                                    </Col>
+
+                                    <Col xs={4}>
+                                        <div className='socials-row  mb-4'>
+                                            <a href='https://github.com/login' title='use gitHub'>
+                                                {/* <img src='https://img.icons8.com/ios-glyphs/30/000000/github.png' alt='gitHub logo' /> */}
+                                                Continue with gitHub
+                                            </a>
+                                        </div>
+
+                                    </Col>
+
+                                    <Col xs={4}>
+                                        <div className='socials-row'>
+                                            <a href='https://es-la.facebook.com/login/device-based/regular/login/' title='use facebook'>
+                                                {/* <img src='https://img.icons8.com/color/48/000000/facebook.png' alt='facebook logo' /> */}
+                                                Continue with facebook
+                                            </a>
+                                        </div>
+                                    </Col>
+
+
+                                </Row>
+
+                                <div className="signin">
+                                    <span>
+                                        <a href="#" onClick={handleShow}>¿Olvidaste tu contraseña?</a>
+                                    </span>
+                                    <br />
+                                    <br />
+                                    <span>
+                                        ¿No tienes una cuenta?{' '}
+                                        <a href="#" onClick={handleShow}>Regístrate</a>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                        
                     </div>
-                </form>
-            </main>
-            <aside className='info-side'>
-                
-            </aside>
-         </div>
+                </div>
+
+            </div>
+            <Example1 show={show} handleClose={handleClose} />
+        </>
     );
 }
 
 export default Login;
+
+
+
+
+

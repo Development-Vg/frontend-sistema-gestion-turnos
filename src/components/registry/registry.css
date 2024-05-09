@@ -1,0 +1,42 @@
+.group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0 10px 0 10px;
+  }
+
+  .modal-body .ctom-imput {
+    height: 40px;
+    width: 100%;
+    color: #0a0a0a;
+    padding: 10.10px;
+    background: transparent;
+    border: 1.2px solid rgba(135, 133, 133, 0.5); /* Color semi-transparente */
+    outline: none;
+    border-radius: 5px;
+  }
+
+   
+  .group .form-label {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    pointer-events: none;
+    transition: .5s;
+    color: rgba(37, 37, 37, 0.5); /* Color de texto semi-transparente */
+  }
+
+  .group .form-control:focus ~ .form-label,
+  .group .form-control:not(:placeholder-shown) ~ .form-label {
+    top: -10px;
+    font-size: 13px;
+    background: #fff;
+  }
+
+  .group .form-select:focus ~ .form-label,
+  .group .form-select:valid ~ .form-label {
+    top: -10px;
+    font-size: 13px;
+    background: #fff;
+  }
+  
