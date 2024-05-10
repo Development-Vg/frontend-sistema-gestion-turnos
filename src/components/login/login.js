@@ -3,9 +3,9 @@ import './login.css';
 import Keycloak from 'keycloak-js';
 
 const keycloakConfig = {
-    url: 'http://localhost:9090',
+    url: 'http://ec2-18-118-103-151.us-east-2.compute.amazonaws.com:8080/',
     realm: 'TurnsManagementApp',
-    clientId: 'frontend-SDGT',
+    clientId: 'react-js-frond-end',
     clientSecret: ''
 }
 
