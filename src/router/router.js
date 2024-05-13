@@ -11,7 +11,7 @@ function AppRouter() {
                 <Route path="/login" element={<ModalRegister />} />
                 <Route path="/registry" element={<Registry />} />
                 <Route path="/homeAdmin" element={<HomeAdmin />} />
-                <Route path="*" element={<Navigate to="/login" />} />
+                <Route path="*" element={<Navigate to="/homeAdmin" />} />
             </Routes>
         </Router>
     );
