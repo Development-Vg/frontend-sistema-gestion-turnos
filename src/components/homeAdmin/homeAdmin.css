@@ -1,4 +1,4 @@
-body {
+.container-fluid {
     font-family: var(--font-inter), sans-serif;
     background-color: #ffffff;
     
@@ -6,4 +6,20 @@ body {
   
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-inter), sans-serif;
+  }
+.home{
+    font-family: var(--font-inter), sans-serif;
+    color: black;
+    font-weight: bold;
+}
+  container-fluid{
+    background-color: #ffffff;
+  }
+  .nav-item:hover {
+    background-color: #f3f4f6; /* Cambia esto al color que desees */
+    transform: translateX(1.5px); /* Esto moverá el enlace 10px a la derecha */
+    font-weight: bold;
+  }
+  .menu{
+    background-color: #fafbfb;
   }

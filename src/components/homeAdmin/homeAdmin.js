@@ -1,41 +1,49 @@
 import React from 'react';
 import './homeAdmin.css';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
 
+
+library.add(fas ,faCalendarDays);
 function AdministratorHomepage() {
+
 
 
   return (
     <div>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-3 border-end bg-gray-100 p-0">
+      <div class="container-fluid"style={{ height: '100vh' }}>
+        <div class="row h-100">
+          <div class="col-lg-3 border-end bg-gray-100 p-0 menu">
             <div class="d-flex flex-column h-100 gap-2">
-              <div class="d-flex align-items-center border-bottom px-3 h-100">
+              <div class="d-flex align-items-center border-bottom px-5"style={{ height: '70px' }} >
                 <a href="#" class="d-flex align-items-center gap-2 font-semibold text-decoration-none">
-                  <i class="bi bi-speedometer2"></i>
-                  <span class="">Admin Dashboard</span>
+                  <FontAwesomeIcon icon="fa-solid fa-toolbox" />
+                  <span class="home">Admin Dashboard</span>
                 </a>
                 <button class="ms-auto btn btn-outline-secondary">
-                  <i class="bi bi-bell"></i>
+                  <FontAwesomeIcon icon="fa-regular fa-bell" />
                   <span class="visually-hidden">Toggle notifications</span>
                 </button>
               </div>
               <div class="flex-grow-1 py-2">
                 <nav class="nav flex-column">
-                  <a class="nav-link rounded-lg bg-gray-100 px-3 py-2 text-dark" href="#">
-                    <i class="bi bi-house-door"></i>
+                  <a class="nav-link rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item">
+                    <FontAwesomeIcon icon="fa-solid fa-house-user" color="#02457a" style={{ marginRight: '10px' }} />
                     Dashboard
                   </a>
-                  <a class="nav-link rounded-lg px-3 py-2 text-dark" href="#">
-                    <i class="bi bi-people"></i>
+                  <a class="nav-link rounded-lg px-3 py-2 text-dark nav-item" href="#">
+                    <FontAwesomeIcon icon={faUsers} color="#02457a" style={{ marginRight: '10px' }}/>
                     Users
                   </a>
-                  <a class="nav-link rounded-lg px-3 py-2 text-dark" href="#">
-                    <i class="bi bi-calendar"></i>
+                  <a class="nav-link rounded-lg px-3 py-2 text-dark nav-item" href="#">
+                    <FontAwesomeIcon icon="fa-regular fa-calendar-days" color="#02457a"style={{ marginRight: '10px' }}/>
                     Shifts
                   </a>
-                  <a class="nav-link rounded-lg px-3 py-2 text-dark" href="#">
-                    <i class="bi bi-gear"></i>
+                  <a class="nav-link rounded-lg px-3 py-2 text-dark nav-item" href="#">
+                  <FontAwesomeIcon icon="fa-solid fa-gear"color="#02457a" style={{ marginRight: '10px' }} />
                     Settings
                   </a>
                 </nav>
