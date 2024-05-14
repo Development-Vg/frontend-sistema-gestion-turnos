@@ -8,9 +8,10 @@ import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Collapse, Dropdown } from 'react-bootstrap';
-
-
 import Keycloak from 'keycloak-js';
+
+
+
 
 library.add(fas, faCalendarDays);
 
@@ -45,10 +46,10 @@ function AdministratorHomepage() {
   const handleLogout = () => {
     if (keycloak) {
         keycloak.logout();
-    }else{
-      console.log("noentro al ke")
+    } else {
+        console.log("noentro al ke")
     }
-};
+  };
   return (
     <div>
       <div class="container-fluid" style={{ height: '100vh' }}>

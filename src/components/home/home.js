@@ -4,10 +4,10 @@ function Home() {
     const [keycloak, setKeycloak] = useState(null);
 
     const handleLogout = () => {
-         if (keycloak.authenticated) {
-            keycloak.logout();
-         }
-    };
+        if (keycloak && keycloak.authenticated) {
+           keycloak.logout();
+        }
+   };
 
     return (
         <div>
