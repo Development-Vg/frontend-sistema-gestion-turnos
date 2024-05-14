@@ -7,8 +7,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
    <Router />
- </React.StrictMode>
+  // </React.StrictMode>
 );
+/*
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from '../src/components/App';
 
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);*/
