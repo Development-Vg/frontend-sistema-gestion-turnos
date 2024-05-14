@@ -28,41 +28,13 @@ const keycloakOptions = {
 function Login() {
      const keycloak = useKeycloak(); // Usa el hook para acceder a la instancia de Keycloak
    
-   
-   
-   
-   /* const [keycloak, setKeycloak] = useState(null);
-
-    useEffect(() => {
-        const initKeycloak = async () => {
-
-            try {
-                const keycloakInstance = new Keycloak(keycloakOptions);
-                await keycloakInstance.init({ onLoad: 'login-required' });
-                setKeycloak(keycloakInstance);
-                if (keycloakInstance.authenticated) {
-                    console.log(keycloakInstance)
-                    console.log("el token es:" + keycloakInstance.token)
-                }
-            } catch (error) {
-                console.error('Error initializing Keycloak:', error);
-            }
-        }
-        initKeycloak();
-    }, [])
-
-    const handleLogout = () => {
-        if (keycloak) {
-            keycloak.logout();
-        }
-    };*/
-
     return (
         <div>
-            
-            {keycloak && keycloak.authenticated ? (
+               {/* { keycloak  && keycloak.authenticated? ( */}
+            { keycloak? (
                 // <h1>BIENVENIDO </h1>
-                    <Navigate to="/home" /> 
+                
+                    <Navigate to="/homeadmin" /> 
 
                 // ir al componente home ?
 
@@ -73,9 +45,11 @@ function Login() {
                     
                 </div>*/
             ) : (
-                <dir>
-                    <h2>no existe</h2>
-                </dir>
+                <div>
+                <h2>Estado de keycloak: {keycloak ? 'Inicializado' : 'No inicializado'}</h2>
+                <h2>Autenticado: {keycloak && keycloak.authenticated ? 'Sí' : 'No'}</h2>
+            </div>
+            
             )}
         </div>
 
