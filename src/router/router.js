@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
-import Login from "../components/login/login";
 import Registry from '../components/registry/registry';
 import Home from "../components/home/home";
 
 import ModalRegister from "../components/login/login";
+import HomeAdmin from "../components/homeAdmin/homeAdmin";
 
 
 function AppRouter() {

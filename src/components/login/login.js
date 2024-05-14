@@ -81,7 +81,7 @@ function Login1() {
 
     return (
         <>
-            <div className="wrapper fadeInDown">
+            <div className="wrapper fadeInDown jj" >
                 <div className="container main">
                     <div className="row custom-row">
                         <div className="col-md-6 image">
