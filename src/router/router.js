@@ -12,6 +12,7 @@ function AppRouter() {
             <Routes>
                 <Route path="/login" element={<ModalRegister />} />
                 <Route path="/home" element={<Home />} />
+                <Route path="/homeadmin" element={<HomeAdmin />} />
                 {/* <Route path="/registry" element={<Registry />} /> */}
                 <Route path="*" element={<Navigate to="/login" />} />
             </Routes>

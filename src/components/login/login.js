@@ -50,15 +50,16 @@ function Login() {
         <div>
             <h1>isss </h1>
             {keycloak && keycloak.authenticated ? (
-                 
+                   <Navigate to="/home" /> 
+
                 // ir al componente home ?
 
-                <div> <h1>inicio sesión </h1>
+                /*<div> <h1>inicio sesión </h1>
                     <p>Usuario: {keycloak.tokenParsed.preferred_username}</p>
                     <button onClick={handleLogout}>Cerrar sesión</button>
-
-                    {/* <Navigate to="/home" /> */}
-                </div>
+                    Navigate to= homeadmin
+                    
+                </div>*/
             ) : (
                 <dir>
                     <h2>Login</h2>
