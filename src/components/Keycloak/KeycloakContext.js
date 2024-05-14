@@ -14,10 +14,12 @@ export const KeycloakProvider = ({ children }) => {
   // Configuración de Keycloak
   const keycloakOptions = {
     url: "http://ec2-3-12-115-86.us-east-2.compute.amazonaws.com:8080/",
-    realm: "prueba",
-    clientId: "react-app-prueba"
+    realm: "TurnsManagementApp",
+    clientId: "react-js-frond-end"
   };
 
+
+   // Función para manejar el cierre de sesión
   const handleLogout = () => {
     if (keycloak) {
       keycloak.logout();
@@ -31,10 +33,18 @@ export const KeycloakProvider = ({ children }) => {
         const keycloakInstance = new Keycloak(keycloakOptions);
         await keycloakInstance.init({ onLoad: 'login-required' });
         setKeycloak(keycloakInstance);
+
+         // Si el usuario está autenticado
+         /*if (keycloakInstance.authenticated) {
+          console.log('Usuario autenticado:', keycloakInstance.tokenParsed.preferred_username);
+          console.log('Token:', keycloakInstance.token);
+        }*/
+
       } catch (error) {
         console.error('Error initializing Keycloak:', error);
       }
     }
+
     initKeycloak();
   }, []);
 

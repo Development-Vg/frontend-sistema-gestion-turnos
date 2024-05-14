@@ -10,13 +10,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Collapse, Dropdown } from 'react-bootstrap';
 
 
-import { useKeycloak } from '../Keycloak/KeycloakContext'; 
+import { useKeycloak } from '../Keycloak/KeycloakContext';
 
 library.add(fas, faCalendarDays);
 
 
 function AdministratorHomepage() {
-  const keycloak = useKeycloak();
+
+  const { keycloak, handleLogout } = useKeycloak();
+
+  const isAuthenticated = keycloak && keycloak.authenticated;
+  const username = isAuthenticated ? keycloak.tokenParsed.preferred_username : 'Usuario';
+
+  const token = isAuthenticated ? keycloak.token : 'Token no disponible';
+
+  console.log('Token:', token);
+
+
 
   const [data, setData] = useState([]);
 
@@ -42,14 +52,6 @@ function AdministratorHomepage() {
   const [open, setOpen] = useState(false);
 
 
-  //salir 
-  const handleLogout = () => {
-    if (keycloak) {
-        keycloak.logout();
-    }else{
-      console.log("noentro al ke")
-    }
-};
   return (
     <div>
       <div class="container-fluid" style={{ height: '100vh' }}>
@@ -100,7 +102,7 @@ function AdministratorHomepage() {
               </a>
               <div class="flex-grow-1">
                 <form>
-                  <div class="position-relative"style={{ maxWidth: '60%' }}>
+                  <div class="position-relative" style={{ maxWidth: '60%' }}>
                     <i class="bi bi-search position-absolute start-0 top-50 translate-middle-y text-secondary"></i>
                     <input class="form-control bg-white shadow-none pl-5" placeholder="Buscar usuarios..." type="search" />
                   </div>
@@ -109,22 +111,22 @@ function AdministratorHomepage() {
               <Dropdown>
                 <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                   <FontAwesomeIcon icon="fa-solid fa-user-tie" style={{ marginRight: '10px' }} />
-                  Anderson Daniel Barreto
+                  {username}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu align="right">
                   <Dropdown.Divider />
                   <Dropdown.Item href="#/action-1">Configuración</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3"  onClick={keycloak.handleLogout} >Cerrar Sesión</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3"  onClick={handleLogout} >Cerrar Sesión</Dropdown.Item>
                   <Dropdown.Divider />
-                  
+
                 </Dropdown.Menu>
               </Dropdown>
             </header>
             <main class="flex-grow-1 gap-4 p-4">
               <div class="d-flex justify-content-center">
                 <h1 class="font-weight-bold fs-5 text-center">Usuarios</h1>
-               
+
               </div>
               <div class="border shadow-sm rounded">
                 <table class="table">

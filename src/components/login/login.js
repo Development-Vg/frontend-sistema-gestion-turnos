@@ -16,41 +16,14 @@ import { Navigate } from 'react-router-dom';
 import { useKeycloak } from '../Keycloak/KeycloakContext';
 
 
-
-/*
-const keycloakOptions = {
-    url: "http://ec2-3-12-115-86.us-east-2.compute.amazonaws.com:8080/",
-    realm: "TurnsManagementApp",
-    clientId: "react-app-prueba"
-}
-*/
-
 function Login() {
-     const keycloak = useKeycloak(); // Usa el hook para acceder a la instancia de Keycloak
-   
+    const {keycloak} = useKeycloak(); // Usa el hook para acceder a la instancia de Keycloak
+
     return (
         <div>
-               {/* { keycloak  && keycloak.authenticated? ( */}
-            { keycloak? (
-                // <h1>BIENVENIDO </h1>
-                
-                    <Navigate to="/homeadmin" /> 
-
-                // ir al componente home ?
-
-                /*<div> <h1>inicio sesión </h1>
-                    <p>Usuario: {keycloak.tokenParsed.preferred_username}</p>
-                    <button onClick={handleLogout}>Cerrar sesión</button>
-                    Navigate to= homeadmin
-                    
-                </div>*/
-            ) : (
-                <div>
-                <h2>Estado de keycloak: {keycloak ? 'Inicializado' : 'No inicializado'}</h2>
-                <h2>Autenticado: {keycloak && keycloak.authenticated ? 'Sí' : 'No'}</h2>
-            </div>
-            
-            )}
+           {keycloak && keycloak.authenticated && (
+            <Navigate to="/homeadmin" />
+        )}
         </div>
 
     );

@@ -3,9 +3,7 @@ import { useKeycloak } from '../Keycloak/KeycloakContext';
 
 
 function Home() {
-    const keycloak = useKeycloak();
-
- 
+    const {keycloak} = useKeycloak();
     return (
         <div>
             <h1>home</h1>
