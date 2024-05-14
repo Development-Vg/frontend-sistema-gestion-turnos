@@ -26,7 +26,7 @@ const keycloakOptions = {
 */
 
 function Login() {
-    const keycloak = useKeycloak(); // Usa el hook para acceder a la instancia de Keycloak
+     const keycloak = useKeycloak(); // Usa el hook para acceder a la instancia de Keycloak
    
    
    
