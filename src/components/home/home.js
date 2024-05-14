@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useKeycloak } from '../Keycloak/KeycloakContext'; 
+
 
 function Home() {
-    const [keycloak, setKeycloak] = useState(null);
+    const keycloak = useKeycloak();
 
-    const handleLogout = () => {
-         if (keycloak.authenticated) {
-            keycloak.logout();
-         }
-    };
-
+ 
     return (
         <div>
-            <button onClick={handleLogout}>Cerrar sesión</button>
+            <h1>home</h1>
+            <button onClick={keycloak.handleLogout}>Cerrar sesión</button>
         </div>
     );
 }

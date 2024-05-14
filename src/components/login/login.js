@@ -8,19 +8,30 @@ import Col from 'react-bootstrap/Col';
 
 
 import { useEffect, useState } from 'react';
-import Keycloak from 'keycloak-js';
+// import Keycloak from 'keycloak-js';
 import { Navigate } from 'react-router-dom';
 
 
+///
+import { useKeycloak } from '../Keycloak/KeycloakContext';
+
+
+
+/*
 const keycloakOptions = {
     url: "http://ec2-3-12-115-86.us-east-2.compute.amazonaws.com:8080/",
     realm: "TurnsManagementApp",
     clientId: "react-app-prueba"
 }
-
+*/
 
 function Login() {
-    const [keycloak, setKeycloak] = useState(null);
+    const keycloak = useKeycloak(); // Usa el hook para acceder a la instancia de Keycloak
+   
+   
+   
+   
+   /* const [keycloak, setKeycloak] = useState(null);
 
     useEffect(() => {
         const initKeycloak = async () => {
@@ -44,13 +55,14 @@ function Login() {
         if (keycloak) {
             keycloak.logout();
         }
-    };
+    };*/
 
     return (
         <div>
-            <h1>isss </h1>
+            
             {keycloak && keycloak.authenticated ? (
-                   <Navigate to="/home" /> 
+                // <h1>BIENVENIDO </h1>
+                    <Navigate to="/home" /> 
 
                 // ir al componente home ?
 
@@ -62,7 +74,7 @@ function Login() {
                 </div>*/
             ) : (
                 <dir>
-                    <h2>Login</h2>
+                    <h2>no existe</h2>
                 </dir>
             )}
         </div>

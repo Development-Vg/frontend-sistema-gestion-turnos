@@ -10,15 +10,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Collapse, Dropdown } from 'react-bootstrap';
 
 
-import Keycloak from 'keycloak-js';
+import { useKeycloak } from '../Keycloak/KeycloakContext'; 
 
 library.add(fas, faCalendarDays);
 
 
 function AdministratorHomepage() {
+  const keycloak = useKeycloak();
 
   const [data, setData] = useState([]);
-  const [keycloak, setKeycloak] = useState(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -114,7 +115,7 @@ function AdministratorHomepage() {
                 <Dropdown.Menu align="right">
                   <Dropdown.Divider />
                   <Dropdown.Item href="#/action-1">Configuración</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3"  onClick={handleLogout} >Cerrar Sesión</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3"  onClick={keycloak.handleLogout} >Cerrar Sesión</Dropdown.Item>
                   <Dropdown.Divider />
                   
                 </Dropdown.Menu>

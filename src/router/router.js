@@ -14,7 +14,7 @@ function AppRouter() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/homeadmin" element={<HomeAdmin />} />
                 {/* <Route path="/registry" element={<Registry />} /> */}
-                <Route path="*" element={<Navigate to="/login" />} />
+                {/* <Route path="*" element={<Navigate to="/login" />} /> */}
             </Routes>
         </Router>
     );
