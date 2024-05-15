@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './homeAdmin.css';
 import axios from 'axios';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers } from '@fortawesome/free-solid-svg-icons';
-import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
+import { faUsers,faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays ,faCalendarPlus,faBell,} from '@fortawesome/free-regular-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Collapse, Dropdown } from 'react-bootstrap';
-
-
 import { useKeycloak } from '../Keycloak/KeycloakContext';
-
-library.add(fas, faCalendarDays);
+import CreateShift from './createShift';
 
 
 function AdministratorHomepage() {
@@ -53,7 +48,17 @@ function AdministratorHomepage() {
     fetchData();
   }, []);
   const [open, setOpen] = useState(false);
+  const [mostrarTablaUsuarios, setMostrarTablaUsuarios] = useState(true);
+  const [mostrarCrearShift, setMostrarCrearShift] = useState(false);
+  const handleUsuariosClick = () => {
+    setMostrarTablaUsuarios(true);
+    setMostrarCrearShift(false);
+};
 
+const handleCrearClick = () => {
+    setMostrarTablaUsuarios(false);
+    setMostrarCrearShift(true);
+};
 
   return (
     <div>
@@ -63,21 +68,21 @@ function AdministratorHomepage() {
             <div class="d-flex flex-column h-100 gap-2">
               <div class="d-flex align-items-center border-bottom px-5" style={{ height: '70px' }} >
                 <a href="#" class="d-flex align-items-center gap-2 font-semibold text-decoration-none">
-                  <FontAwesomeIcon icon="fa-solid fa-toolbox" />
+                  <FontAwesomeIcon icon={faBell} style={{ marginRight: '10px' }}/>
                   <span class="home">Admin Dashboard</span>
                 </a>
                 <button class="ms-auto btn btn-outline-secondary">
-                  <FontAwesomeIcon icon="fa-regular fa-bell" />
+                 <FontAwesomeIcon icon="fa-regular fa-bell" />
                   <span class="visually-hidden">Toggle notifications</span>
                 </button>
               </div>
               <div className="flex-grow-1 py-2">
                 <Nav className="flex-column">
                   <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item">
-                    <FontAwesomeIcon icon="fa-solid fa-house-user" color="#02457a" style={{ marginRight: '8px' }} />
+                  <FontAwesomeIcon icon={faHouse} color="#02457a" style={{ marginRight: '8px' }} />
                     Dashboard
                   </Nav.Link>
-                  <Nav.Link className="rounded-lg px-3 py-2 text-dark nav-item" href="#">
+                  <Nav.Link className="rounded-lg px-3 py-2 text-dark nav-item" href="#" onClick={handleUsuariosClick}>
                     <FontAwesomeIcon icon={faUsers} color="#02457a" style={{ marginRight: '6px' }} />
                     Usuarios
                   </Nav.Link>
@@ -87,8 +92,8 @@ function AdministratorHomepage() {
                   </Nav.Link>
                   <Collapse in={open}>
                     <div id="collapseTurnos">
-                      <Nav.Link className="rounded-lg px-3 py-2 text-dark nav-item" href="#">
-                        <FontAwesomeIcon icon={['fas', 'calendar-plus']} color="#02457a" style={{ marginRight: '11px' }} />
+                      <Nav.Link className="rounded-lg px-3 py-2 text-dark nav-item" href="#" onClick={handleCrearClick}>
+                      <FontAwesomeIcon icon={faCalendarPlus} color="#02457a" style={{ marginRight: '11px' }} />
                         Crear
                       </Nav.Link>
                     </div>
@@ -120,48 +125,51 @@ function AdministratorHomepage() {
                 <Dropdown.Menu align="right">
                   <Dropdown.Divider />
                   <Dropdown.Item href="#/action-1">Configuración</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3"  onClick={handleLogout} >Cerrar Sesión</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3" onClick={handleLogout} >Cerrar Sesión</Dropdown.Item>
                   <Dropdown.Divider />
 
                 </Dropdown.Menu>
               </Dropdown>
             </header>
-            <main class="flex-grow-1 gap-4 p-4">
-              <div class="d-flex justify-content-center">
-                <h1 class="font-weight-bold fs-5 text-center">Usuarios</h1>
-
-              </div>
-              <div class="border shadow-sm rounded">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Id</th>
-                      <th scope="col">Nombre</th>
-                      <th scope="col">Apellido</th>
-                      <th scope="col">Tipo documento</th>
-                      <th scope="col">N documento</th>
-                      <th scope="col">Dirección</th>
-                      <th scope="col">Correo</th>
-                      <th scope="col">Celular</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.map((item, index) => (
-                      <tr key={index}>
-                        <th scope="row">{item.id}</th>
-                        <td>{item.name}</td>
-                        <td>{item.lastName}</td>
-                        <td>{item.typeDocument}</td>
-                        <td>{item.document}</td>
-                        <td>{item.addres}</td>
-                        <td>{item.email}</td>
-                        <td>{item.celphone}</td>
+            {mostrarTablaUsuarios ? ( // Muestra la tabla si mostrarTabla es true
+              <main class="flex-grow-1 gap-4 p-4">
+                <div class="d-flex justify-content-center">
+                  <h1 class="font-weight-bold fs-5 text-center">Usuarios</h1>
+                </div>
+                <div class="border shadow-sm rounded">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Tipo documento</th>
+                        <th scope="col">N documento</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Celular</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </main>
+                    </thead>
+                    <tbody>
+                      {data.map((item, index) => (
+                        <tr key={index}>
+                          <th scope="row">{item.id}</th>
+                          <td>{item.name}</td>
+                          <td>{item.lastName}</td>
+                          <td>{item.typeDocument}</td>
+                          <td>{item.document}</td>
+                          <td>{item.addres}</td>
+                          <td>{item.email}</td>
+                          <td>{item.celphone}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </main>
+            ) : (
+              mostrarCrearShift ? <CreateShift /> : null // Muestra el contenido heredado si mostrarTabla es false
+            )}
           </div>
         </div>
         <div class="fixed-bottom fixed-lg-end m-3">

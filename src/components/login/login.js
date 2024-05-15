@@ -18,16 +18,23 @@ import { useKeycloak } from '../Keycloak/KeycloakContext';
 
 function Login() {
     const {keycloak} = useKeycloak();
-    const roles = keycloak && keycloak.tokenParsed ? keycloak.tokenParsed.realm_access.roles : [];
-    const isAdmin = roles.includes('admin-role-TurnsManagementApp');
+    
+    const roles = keycloak && keycloak.tokenParsed;
+    const role = roles ? keycloak.tokenParsed.realm_access.roles : [0];
+    
+
+    let navigation;
+    if (keycloak && keycloak.authenticated) {
+        if (role === "admin-role-TurnsManagementApp") {
+            navigation = <Navigate to="/home" />;
+        } else {
+            navigation = <Navigate to="/homeadmin" />;
+        }
+    }
 
     return (
         <div>
-            {keycloak && keycloak.authenticated && (
-                isAdmin ? 
-                    <Navigate to="/homeadmin" replace /> :
-                    <Navigate to="/home" replace />
-            )}
+            {navigation}
         </div>
     );
 }
