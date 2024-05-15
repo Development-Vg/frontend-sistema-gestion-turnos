@@ -3,7 +3,7 @@ import { useKeycloak } from '../Keycloak/KeycloakContext';
 
 
 function Home() {
-    const {keycloak} = useKeycloak();
+    const { keycloak, handleLogout } = useKeycloak();
     return (
         <div>
             <h1>home</h1>
@@ -12,7 +12,7 @@ function Home() {
                 <h2>Estado de keycloak: {keycloak ? 'Inicializado' : 'No inicializado'}</h2>
                 <h2>Autenticado: {keycloak && keycloak.authenticated ? 'Sí' : 'No'}</h2>
             </div>
-            <button onClick={keycloak.handleLogout}>Cerrar sesión</button>
+            <button onClick={handleLogout}>Cerrar sesión</button>
         </div>
     );
 }

@@ -17,15 +17,18 @@ import { useKeycloak } from '../Keycloak/KeycloakContext';
 
 
 function Login() {
-    const {keycloak} = useKeycloak(); // Usa el hook para acceder a la instancia de Keycloak
+    const {keycloak} = useKeycloak();
+    const roles = keycloak && keycloak.tokenParsed ? keycloak.tokenParsed.realm_access.roles : [];
+    const isAdmin = roles.includes('admin-role-TurnsManagementApp');
 
     return (
         <div>
-           {keycloak && keycloak.authenticated && (
-            <Navigate to="/homeadmin" />
-        )}
+            {keycloak && keycloak.authenticated && (
+                isAdmin ? 
+                    <Navigate to="/homeadmin" replace /> :
+                    <Navigate to="/home" replace />
+            )}
         </div>
-
     );
 }
 

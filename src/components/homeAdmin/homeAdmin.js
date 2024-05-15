@@ -21,10 +21,13 @@ function AdministratorHomepage() {
 
   const isAuthenticated = keycloak && keycloak.authenticated;
   const username = isAuthenticated ? keycloak.tokenParsed.preferred_username : 'Usuario';
+  const roles = isAuthenticated ? keycloak.tokenParsed.realm_access.roles : [0];
 
   const token = isAuthenticated ? keycloak.token : 'Token no disponible';
 
+
   console.log('Token:', token);
+  console.log('role:', roles);
 
 
 
