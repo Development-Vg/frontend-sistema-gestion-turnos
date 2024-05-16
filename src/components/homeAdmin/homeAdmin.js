@@ -7,7 +7,7 @@ import { faCalendarDays ,faCalendarPlus,faBell,} from '@fortawesome/free-regular
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Collapse, Dropdown } from 'react-bootstrap';
 import { useKeycloak } from '../Keycloak/KeycloakContext';
-import CreateShift from './createShift';
+import CreateShift from '../Shift/createShift';
 
 
 function AdministratorHomepage() {
@@ -69,7 +69,7 @@ const handleCrearClick = () => {
               <div class="d-flex align-items-center border-bottom px-5" style={{ height: '70px' }} >
                 <a href="#" class="d-flex align-items-center gap-2 font-semibold text-decoration-none">
                   <FontAwesomeIcon icon={faBell} style={{ marginRight: '10px' }}/>
-                  <span class="home">Admin Dashboard</span>
+                  <span class="home" >Admin Dashboard</span>
                 </a>
                 <button class="ms-auto btn btn-outline-secondary">
                  <FontAwesomeIcon icon="fa-regular fa-bell" />
@@ -79,21 +79,21 @@ const handleCrearClick = () => {
               <div className="flex-grow-1 py-2">
                 <Nav className="flex-column">
                   <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item">
-                  <FontAwesomeIcon icon={faHouse} color="#02457a" style={{ marginRight: '8px' }} />
+                  <FontAwesomeIcon icon={faHouse} color="#02457a" style={{ marginRight: '10px' }} />
                     Dashboard
                   </Nav.Link>
-                  <Nav.Link className="rounded-lg px-3 py-2 text-dark nav-item" href="#" onClick={handleUsuariosClick}>
-                    <FontAwesomeIcon icon={faUsers} color="#02457a" style={{ marginRight: '6px' }} />
+                  <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleUsuariosClick}>
+                    <FontAwesomeIcon icon={faUsers} color="#02457a" style={{ marginRight: '7px' }} />
                     Usuarios
                   </Nav.Link>
-                  <Nav.Link onClick={() => setOpen(!open)} className="rounded-lg px-3 py-2 text-dark nav-item">
-                    <FontAwesomeIcon icon={faCalendarDays} color="#02457a" style={{ marginRight: '11px' }} />
+                  <Nav.Link onClick={() => setOpen(!open)} className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item">
+                    <FontAwesomeIcon icon={faCalendarDays} color="#02457a" style={{ marginLeft: '3px',marginRight: '11px'  }} />
                     Turnos
                   </Nav.Link>
                   <Collapse in={open}>
                     <div id="collapseTurnos">
-                      <Nav.Link className="rounded-lg px-3 py-2 text-dark nav-item" href="#" onClick={handleCrearClick}>
-                      <FontAwesomeIcon icon={faCalendarPlus} color="#02457a" style={{ marginRight: '11px' }} />
+                      <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleCrearClick}>
+                      <FontAwesomeIcon icon={faCalendarPlus} color="#02457a" style={{ marginLeft: '3px',marginRight: '11px'  }} />
                         Crear
                       </Nav.Link>
                     </div>
