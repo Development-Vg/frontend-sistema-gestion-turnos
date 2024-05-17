@@ -46,27 +46,31 @@ function CreateShift() {
     const handleCloseShiftCreated = () => setShowShiftCreated(false);
     const handleShowShiftCreated = () => setShowShiftCreated(true);
 
-   
+
 
 
     useEffect(() => {
         const fetchData = async () => {
-          const backendUrl = process.env.REACT_APP_BCKEND_USERS_QUERY;
-          if (!backendUrl) {
-            console.error('REACT_APP_BCKEND está indefinido');
-            return;
-          }
-    
-          try {
-            const response = await axios.get(`${backendUrl}/list/listAll`);
-            setData(response.data);
-          } catch (error) {
-            console.error('Error al cargar los datos', error);
-          }
+            const backendUrl = process.env.REACT_APP_BCKEND_USERS_QUERY;
+            if (!backendUrl) {
+                console.error('REACT_APP_BCKEND está indefinido');
+                return;
+            }
+
+            try {
+                const response = await axios.get(`${backendUrl}/list/listAll`);
+                setData(response.data);
+            } catch (error) {
+                console.error('Error al cargar los datos', error);
+            }
         };
-    
+
         fetchData();
-      }, []);
+    }, []);
+
+    function CloseConfirmShift() {
+        setShowConfirmShift(false);
+    }
 
     async function handleConfirmShiftClick() {
         // Asegúrate de tener todos los datos necesarios
@@ -76,19 +80,19 @@ function CreateShift() {
         }
         const backendUrl = process.env.REACT_APP_BCKEND_SHIFT_COMAND;
         const currentDate = new Date(); // Obtén la fecha actual
-        const formattedDate = format(currentDate, 'yyyy-MM-ddHH:mm');
+        const isoDate = currentDate.toISOString();
         // Crea el objeto con los datos para la petición
         const data = {
-            userId: selectedUser,
+            id_user: parseInt(selectedUser, 10),
             dependence: selectedDependence,
-            date: formattedDate
+            date: isoDate
         };
-    
+
         console.log(data);
-    
+
         // Haz la petición POST
         try {
-            const response = await axios.post(`${backendUrl}/turnos/create`);
+            const response = await axios.post(`${backendUrl}/turnos/create`, data);
             // Maneja la respuesta
             console.log(response);
             handleShowShiftCreated();
@@ -206,8 +210,7 @@ function CreateShift() {
                             <p>Time: 9:00 AM - 5:00 PM</p>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="secondary" onClick={handleCloseCreateShift}>Cerrar</Button>
-                            
+                            <Button variant="secondary" onClick={() => { handleCloseCreateShift(); handleCloseConfirmShift(); handleCloseShiftCreated(); }}>Cerrar</Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
@@ -216,6 +219,5 @@ function CreateShift() {
 
     );
 }
-
 
 export default CreateShift;
