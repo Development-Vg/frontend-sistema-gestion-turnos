@@ -16,9 +16,9 @@ function CreateShift() {
     const [selectedDependence, setSelectedDependence] = useState(null);
 
     const [showCreateShift, setShowCreateShift] = useState(false);
-const [showConfirmShift, setShowConfirmShift] = useState(false);
-const [showShiftCreated, setShowShiftCreated] = useState(false);
-    
+    const [showConfirmShift, setShowConfirmShift] = useState(false);
+    const [showShiftCreated, setShowShiftCreated] = useState(false);
+
 
     const handleCloseCreateShift = () => {
         setSelectedUser(null);
@@ -41,7 +41,7 @@ const [showShiftCreated, setShowShiftCreated] = useState(false);
     }, [selectedUser, selectedDependence]);
 
     const handleCloseConfirmShift = () => setShowConfirmShift(false);
-    
+
 
     const handleCloseShiftCreated = () => setShowShiftCreated(false);
     const handleShowShiftCreated = () => setShowShiftCreated(true);
@@ -81,7 +81,7 @@ const [showShiftCreated, setShowShiftCreated] = useState(false);
         const isoDate = currentDate.toISOString();
         // Crea el objeto con los datos para la petición
         const data = {
-            id_user: parseInt(selectedUser, 10),
+            userId: parseInt(selectedUser, 10),
             dependence: selectedDependence,
             date: isoDate
         };
