@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import './homeAdmin.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers,faHouse } from '@fortawesome/free-solid-svg-icons';
-import { faCalendarDays ,faCalendarPlus,faBell,} from '@fortawesome/free-regular-svg-icons';
+import { faUsers, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays, faCalendarPlus, faBell, } from '@fortawesome/free-regular-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Collapse, Dropdown } from 'react-bootstrap';
 import { useKeycloak } from '../Keycloak/KeycloakContext';
 import CreateShift from '../Shift/createShift';
+import Dashboard from '../Dashboard/Dashboard';
+import ListShift from '../ListShift/ListShift';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
@@ -23,6 +25,7 @@ function AdministratorHomepage() {
   const roles = isAuthenticated ? keycloak.tokenParsed.realm_access.roles : [0];
 
   const token = isAuthenticated ? keycloak.token : 'Token no disponible';
+
 
 
   console.log('Token:', token);
@@ -52,17 +55,31 @@ function AdministratorHomepage() {
     fetchData();
   }, []);
   const [open, setOpen] = useState(false);
-  const [mostrarTablaUsuarios, setMostrarTablaUsuarios] = useState(true);
+  const [mostrarTablaUsuarios, setMostrarTablaUsuarios] = useState(false);
   const [mostrarCrearShift, setMostrarCrearShift] = useState(false);
+  const [mostrarListaTurnos, setMostrarListaTurnos] = useState(false);
+
   const handleUsuariosClick = () => {
     setMostrarTablaUsuarios(true);
     setMostrarCrearShift(false);
-};
+  };
 
-const handleCrearClick = () => {
+  const handleCrearClick = () => {
     setMostrarTablaUsuarios(false);
     setMostrarCrearShift(true);
-};
+  };
+
+  const handleDashboardClick = () => {
+    setMostrarTablaUsuarios(false);
+    setMostrarCrearShift(false);
+    setMostrarListaTurnos(false); 
+  };
+
+  const handleListaClick = () => {
+    setMostrarTablaUsuarios(false);
+    setMostrarCrearShift(false);
+    setMostrarListaTurnos(true);
+  };
 
   return (
     <div>
@@ -72,18 +89,18 @@ const handleCrearClick = () => {
             <div class="d-flex flex-column h-100 gap-2">
               <div class="d-flex align-items-center border-bottom px-5" style={{ height: '70px' }} >
                 <a href="#" class="d-flex align-items-center gap-2 font-semibold text-decoration-none">
-                  <FontAwesomeIcon icon={faBell} style={{ marginRight: '10px' }}/>
+                  <FontAwesomeIcon icon={faBell} style={{ marginRight: '10px' }} />
                   <span class="home" >Admin Dashboard</span>
                 </a>
                 <button class="ms-auto btn btn-outline-secondary">
-                 <FontAwesomeIcon icon="fa-regular fa-bell" />
+                  <FontAwesomeIcon icon="fa-regular fa-bell" />
                   <span class="visually-hidden">Toggle notifications</span>
                 </button>
               </div>
               <div className="flex-grow-1 py-2">
                 <Nav className="flex-column">
-                  <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item">
-                  <FontAwesomeIcon icon={faHouse} color="#02457a" style={{ marginRight: '10px' }} />
+                  <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" onClick={handleDashboardClick}>
+                    <FontAwesomeIcon icon={faHouse} color="#02457a" style={{ marginRight: '10px' }} />
                     Dashboard
                   </Nav.Link>
                   <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleUsuariosClick}>
@@ -91,14 +108,18 @@ const handleCrearClick = () => {
                     Usuarios
                   </Nav.Link>
                   <Nav.Link onClick={() => setOpen(!open)} className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item">
-                    <FontAwesomeIcon icon={faCalendarDays} color="#02457a" style={{ marginLeft: '3px',marginRight: '11px'  }} />
+                    <FontAwesomeIcon icon={faCalendarDays} color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
                     Turnos
                   </Nav.Link>
                   <Collapse in={open}>
                     <div id="collapseTurnos">
                       <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleCrearClick}>
-                      <FontAwesomeIcon icon={faCalendarPlus} color="#02457a" style={{ marginLeft: '3px',marginRight: '11px'  }} />
+                        <FontAwesomeIcon icon={faCalendarPlus} color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
                         Crear
+                      </Nav.Link>
+                      <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleListaClick}>
+                        <FontAwesomeIcon icon="fa-solid fa-list" color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
+                        Lista
                       </Nav.Link>
                     </div>
                   </Collapse>
@@ -122,7 +143,7 @@ const handleCrearClick = () => {
               </div>
               <Dropdown>
                 <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-                <FontAwesomeIcon icon={["fas", "user-tie"]} style={{ marginRight: '10px' }} />
+                  <FontAwesomeIcon icon={["fas", "user-tie"]} style={{ marginRight: '10px' }} />
                   {username}
                 </Dropdown.Toggle>
 
@@ -171,8 +192,12 @@ const handleCrearClick = () => {
                   </table>
                 </div>
               </main>
+            ) : mostrarCrearShift ? (
+              <CreateShift />
+            ) : mostrarListaTurnos ? (
+              <ListShift />
             ) : (
-              mostrarCrearShift ? <CreateShift /> : null // Muestra el contenido heredado si mostrarTabla es false
+              <Dashboard />
             )}
           </div>
         </div>

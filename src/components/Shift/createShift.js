@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import './Shift.css';
 import { Button, Modal } from 'react-bootstrap';
-import { format } from 'date-fns';
 
 
 function CreateShift() {
@@ -17,8 +16,9 @@ function CreateShift() {
     const [selectedDependence, setSelectedDependence] = useState(null);
 
     const [showCreateShift, setShowCreateShift] = useState(false);
-    const [showConfirmShift, setShowConfirmShift] = useState(false);
-    const [showShiftCreated, setShowShiftCreated] = useState(false);
+const [showConfirmShift, setShowConfirmShift] = useState(false);
+const [showShiftCreated, setShowShiftCreated] = useState(false);
+    
 
     const handleCloseCreateShift = () => {
         setSelectedUser(null);
@@ -41,7 +41,7 @@ function CreateShift() {
     }, [selectedUser, selectedDependence]);
 
     const handleCloseConfirmShift = () => setShowConfirmShift(false);
-    const handleShowConfirmShift = () => setShowConfirmShift(true);
+    
 
     const handleCloseShiftCreated = () => setShowShiftCreated(false);
     const handleShowShiftCreated = () => setShowShiftCreated(true);
@@ -68,9 +68,7 @@ function CreateShift() {
         fetchData();
     }, []);
 
-    function CloseConfirmShift() {
-        setShowConfirmShift(false);
-    }
+
 
     async function handleConfirmShiftClick() {
         // Asegúrate de tener todos los datos necesarios
