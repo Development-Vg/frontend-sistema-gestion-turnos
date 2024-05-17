@@ -8,6 +8,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Collapse, Dropdown } from 'react-bootstrap';
 import { useKeycloak } from '../Keycloak/KeycloakContext';
 import CreateShift from '../Shift/createShift';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fas);
 
 
 function AdministratorHomepage() {
@@ -31,14 +35,14 @@ function AdministratorHomepage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const backendUrl = process.env.REACT_APP_BCKEND;
+      const backendUrl = process.env.REACT_APP_BCKEND_USERS_QUERY;
       if (!backendUrl) {
         console.error('REACT_APP_BCKEND está indefinido');
         return;
       }
 
       try {
-        const response = await axios.get(`${backendUrl}/users/listAll`);
+        const response = await axios.get(`${backendUrl}/list/listAll`);
         setData(response.data);
       } catch (error) {
         console.error('Error al cargar los datos', error);
@@ -118,7 +122,7 @@ const handleCrearClick = () => {
               </div>
               <Dropdown>
                 <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-                  <FontAwesomeIcon icon="fa-solid fa-user-tie" style={{ marginRight: '10px' }} />
+                <FontAwesomeIcon icon={["fas", "user-tie"]} style={{ marginRight: '10px' }} />
                   {username}
                 </Dropdown.Toggle>
 

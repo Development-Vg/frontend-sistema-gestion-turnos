@@ -51,30 +51,30 @@ function CreateShift() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const backendUrl = process.env.REACT_APP_BCKEND;
-            if (!backendUrl) {
-                console.error('REACT_APP_BCKEND está indefinido');
-                return;
-            }
-
-            try {
-                const response = await axios.get(`${backendUrl}/users/listAll`);
-                setData(response.data);
-            } catch (error) {
-                console.error('Error al cargar los datos', error);
-            }
+          const backendUrl = process.env.REACT_APP_BCKEND_USERS_QUERY;
+          if (!backendUrl) {
+            console.error('REACT_APP_BCKEND está indefinido');
+            return;
+          }
+    
+          try {
+            const response = await axios.get(`${backendUrl}/list/listAll`);
+            setData(response.data);
+          } catch (error) {
+            console.error('Error al cargar los datos', error);
+          }
         };
-
+    
         fetchData();
-    }, []);
+      }, []);
 
-    function handleConfirmShiftClick() {
+    async function handleConfirmShiftClick() {
         // Asegúrate de tener todos los datos necesarios
         if (!selectedUser || !selectedDependence) {
             alert('Por favor selecciona una dependencia');
             return;
         }
-
+        const backendUrl = process.env.REACT_APP_BCKEND_SHIFT_COMAND;
         const currentDate = new Date(); // Obtén la fecha actual
         const formattedDate = format(currentDate, 'yyyy-MM-ddHH:mm');
         // Crea el objeto con los datos para la petición
@@ -83,22 +83,19 @@ function CreateShift() {
             dependence: selectedDependence,
             date: formattedDate
         };
-        
-        // Actualiza la fecha en el objeto data
-       
-
+    
         console.log(data);
+    
         // Haz la petición POST
-        axios.post('https://tu-api.com/crear-turno', data)
-            .then(response => {
-                // Maneja la respuesta
-                console.log(response);
-            })
-            .catch(error => {
-                // Maneja el error
-                console.error(error);
-            });
+        try {
+            const response = await axios.post(`${backendUrl}/turnos/create`);
+            // Maneja la respuesta
+            console.log(response);
             handleShowShiftCreated();
+        } catch (error) {
+            // Maneja el error
+            console.error(error);
+        }
     }
 
 
