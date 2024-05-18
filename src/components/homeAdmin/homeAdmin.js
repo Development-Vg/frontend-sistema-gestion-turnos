@@ -38,7 +38,7 @@ function AdministratorHomepage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const backendUrl = process.env.REACT_APP_BCKEND_USERS_QUERY;
+      const backendUrl = process.env.REACT_APP_BCKEND;
       if (!backendUrl) {
         console.error('REACT_APP_BCKEND está indefinido');
         return;
@@ -58,6 +58,7 @@ function AdministratorHomepage() {
   const [mostrarTablaUsuarios, setMostrarTablaUsuarios] = useState(false);
   const [mostrarCrearShift, setMostrarCrearShift] = useState(false);
   const [mostrarListaTurnos, setMostrarListaTurnos] = useState(false);
+  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
 
   const handleUsuariosClick = () => {
     setMostrarTablaUsuarios(true);
@@ -117,7 +118,7 @@ function AdministratorHomepage() {
                         <FontAwesomeIcon icon={faCalendarPlus} color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
                         Crear
                       </Nav.Link>
-                      <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleListaClick}>
+                      <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={() => { setShouldUpdateTable(true); handleListaClick(); }}>
                         <FontAwesomeIcon icon="fa-solid fa-list" color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
                         Lista
                       </Nav.Link>

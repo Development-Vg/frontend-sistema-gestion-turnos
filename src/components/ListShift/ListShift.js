@@ -9,22 +9,22 @@ function ListShift() {
     const [searchValue, setSearchValue] = useState('');
     const [data, setData] = useState([]);
 
+    const fetchData = async () => {
+        const backendUrl = process.env.REACT_APP_BCKEND;
+        if (!backendUrl) {
+            console.error('REACT_APP_BCKEND está indefinido');
+            return;
+        }
+
+        try {
+            const response = await axios.get(`${backendUrl}/turnos/listAll`);
+            setData(response.data);
+        } catch (error) {
+            console.error('Error al cargar los datos', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            const backendUrl = process.env.REACT_APP_BCKEND_SHIFT_COMAND;
-            if (!backendUrl) {
-                console.error('REACT_APP_BCKEND está indefinido');
-                return;
-            }
-
-            try {
-                const response = await axios.get(`${backendUrl}/turnos/listAll`);
-                setData(response.data);
-            } catch (error) {
-                console.error('Error al cargar los datos', error);
-            }
-        };
-
         fetchData();
     }, []);
 
@@ -34,7 +34,7 @@ function ListShift() {
             <div className="max-w-6xl w-full space-y-6 p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
                 <div className="space-y-2">
                     <h1 class="font-weight-bold fs-5 text-center titlle">Tabla de Turnos</h1>
-                    <p className="text-gray-500 dark:text-gray-400 text-center">Turnos creados, eliminadoc ....</p>
+                    <p className="text-gray-500 dark:text-gray-400 text-center">Turnos creados ....</p>
                 </div>
                 <div className="space-y-4">
                     <header class="d-flex align-items-center justify-content-center gap-4 border-bottom bg-gray-100 p-3" >
@@ -68,31 +68,34 @@ function ListShift() {
 
                     </header>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <div className="border rounded-lg overflow-auto inline-block" style={{ marginTop: '20px' }}>
-                            <table class="table" style={{ width: '620px' }}>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Id turno</th>
-                                        <th scope="col">Id usuario</th>
-                                        <th scope="col">Dependencia</th>
-                                        <th scope="col">fecha</th>
-                                        <th scope="col">fecha</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {data.map((item, index) => (
-                                        <tr key={index}>
-                                            <th scope="row">{item.id}</th>
-                                            <td>{item.userId}</td>
-                                            <td>{item.dependence}</td>
-                                            <td>{item.date}</td>
-                                            <td>{item.shiftNumber}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            <div className="border rounded-lg overflow-auto inline-block" style={{ marginTop: '20px' }}>
+                <table class="table" style={{ width: '620px' }}>
+                    <thead>
+                        <tr>
+                            <th scope="col">Id turno</th>
+                            <th scope="col">Id usuario</th>
+                            <th scope="col">Dependencia</th>
+                            <th scope="col">fecha</th>
+                            <th scope="col">Turno</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((item, index) => (
+                            <tr key={index}>
+                                <th scope="row">{item.id}</th>
+                                <td>{item.userId}</td>
+                                <td>{item.dependence}</td>
+                                <td>{item.date}</td>
+                                <td>{item.shiftNumber}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <div style={{ marginLeft: '10px' }}>
+            <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" onClick={fetchData}  />
+            </div>
+        </div>
                 </div>
             </div>
         </div>

@@ -51,7 +51,7 @@ function CreateShift() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const backendUrl = process.env.REACT_APP_BCKEND_USERS_QUERY;
+            const backendUrl = process.env.REACT_APP_BCKEND;
             if (!backendUrl) {
                 console.error('REACT_APP_BCKEND está indefinido');
                 return;
@@ -76,7 +76,7 @@ function CreateShift() {
             alert('Por favor selecciona una dependencia');
             return;
         }
-        const backendUrl = process.env.REACT_APP_BCKEND_SHIFT_COMAND;
+        const backendUrl = process.env.REACT_APP_BCKEND;
         const currentDate = new Date(); // Obtén la fecha actual
         const isoDate = currentDate.toISOString();
         // Crea el objeto con los datos para la petición
