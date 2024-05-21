@@ -19,41 +19,22 @@ function RegistryShift({ userId }) {
 
     const fetchAvailableDates = (dependence, date) => {
         if (!dependence || !date) return;
-        const simulatedData = [
-            "Mon May 20 2024 08:00:00 GMT-0500",
-            "Mon May 20 2024 08:30:00 GMT-0500",
-            "Mon May 20 2024 09:00:00 GMT-0500",
-            "Mon May 20 2024 09:30:00 GMT-0500",
-            "Mon May 20 2024 10:00:00 GMT-0500",
-            "Mon May 20 2024 10:30:00 GMT-0500",
-            "Mon May 20 2024 11:00:00 GMT-0500",
-            "Mon May 20 2024 11:30:00 GMT-0500",
-            "Mon May 20 2024 12:00:00 GMT-0500",
-            "Mon May 20 2024 12:30:00 GMT-0500",
-            "Mon May 20 2024 13:00:00 GMT-0500",
-            "Mon May 20 2024 13:30:00 GMT-0500",
-            "Mon May 20 2024 14:00:00 GMT-0500",
-            "Mon May 20 2024 14:30:00 GMT-0500",
-            "Mon May 20 2024 15:00:00 GMT-0500",
-            "Mon May 20 2024 15:30:00 GMT-0500",
-            "Mon May 20 2024 16:00:00 GMT-0500",
-            "Mon May 20 2024 16:30:00 GMT-0500",
-            "Mon May 20 2024 17:00:00 GMT-0500"
-        ];
-        setAvailableDates(simulatedData);
 
+        const backendUrl = process.env.REACT_APP_BCKEND;
+        if (!backendUrl) {
+            console.error('REACT_APP_BCKEND está indefinido');
+            return;
+        }
 
-        //se llama al bakec para traer  la lista 
-        // Ejemplo:
-        // axios.get(`${backendUrl}/availableDates`, { params: { dependence, date } })
-        //     .then(response => {
-        //         setAvailableDates(response.data);
-        //     })
-        //     .catch(error => {
-        //         console.error('Error al obtener fechas disponibles', error);
-        //     });
+        // Realizar la solicitud al backend para obtener las fechas disponibles
+        axios.get(`${backendUrl}/turnosList/listAvailableShifts`, { params: { dependence, date } })
+            .then(response => {
+                setAvailableDates(response.data);
+            })
+            .catch(error => {
+                console.error('Error al obtener fechas disponibles', error);
+            });
     };
-
     const handleDependenceSelect = (dependence) => {
         setSelectedDependence(dependence);
     };
