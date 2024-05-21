@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Collapse, Dropdown } from 'react-bootstrap';
 import { useKeycloak } from '../Keycloak/KeycloakContext';
 import CreateShift from '../Shift/createShift';
+import RegistryShit from '../CreateShift/RegistryShit'; 
 import Dashboard from '../Dashboard/Dashboard';
 import ListShift from '../ListShift/ListShift';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -23,13 +24,14 @@ function AdministratorHomepage() {
   const isAuthenticated = keycloak && keycloak.authenticated;
   const username = isAuthenticated ? keycloak.tokenParsed.preferred_username : 'Usuario';
   const roles = isAuthenticated ? keycloak.tokenParsed.realm_access.roles : [0];
+  
 
   const token = isAuthenticated ? keycloak.token : 'Token no disponible';
 
 
 
-  console.log('Token:', token);
-  console.log('role:', roles);
+ //console.log('Token:', token);
+ // console.log('role:', roles);
 
 
 
@@ -54,38 +56,59 @@ function AdministratorHomepage() {
 
     fetchData();
   }, []);
+
   const [open, setOpen] = useState(false);
   const [mostrarTablaUsuarios, setMostrarTablaUsuarios] = useState(false);
   const [mostrarCrearShift, setMostrarCrearShift] = useState(false);
   const [mostrarListaTurnos, setMostrarListaTurnos] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
+  const [mostrarNuevoComponente, setMostrarNuevoComponente] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
 
   const handleUsuariosClick = () => {
     setMostrarTablaUsuarios(true);
     setMostrarCrearShift(false);
+    setMostrarListaTurnos(false);
+    setMostrarNuevoComponente(false);
   };
 
   const handleCrearClick = () => {
     setMostrarTablaUsuarios(false);
     setMostrarCrearShift(true);
+    setMostrarListaTurnos(false);
+    setMostrarNuevoComponente(false);
   };
+
+  
 
   const handleDashboardClick = () => {
     setMostrarTablaUsuarios(false);
     setMostrarCrearShift(false);
-    setMostrarListaTurnos(false); 
+    setMostrarListaTurnos(false);
+    setMostrarNuevoComponente(false);
   };
 
   const handleListaClick = () => {
     setMostrarTablaUsuarios(false);
     setMostrarCrearShift(false);
     setMostrarListaTurnos(true);
+    setMostrarNuevoComponente(false);
   };
 
-  return (
-    <div>
-      <div class="container-fluid" style={{ height: '100vh' }}>
-        <div class="row h-100">
+  const handleShowCreateShift = (userId) => {
+    setSelectedUser(userId);
+    setMostrarTablaUsuarios(false);
+    setMostrarCrearShift(false);
+    setMostrarListaTurnos(false);
+    setMostrarNuevoComponente(true);
+  };
+
+    return (
+
+      <div>
+        <div class="container-fluid" style={{ height: '100vh' }}>
+          <div class="row h-100">
           <div class="col-lg-3 border-end bg-gray-100 p-0 menu">
             <div class="d-flex flex-column h-100 gap-2">
               <div class="d-flex align-items-center border-bottom px-5" style={{ height: '70px' }} >
@@ -104,20 +127,25 @@ function AdministratorHomepage() {
                     <FontAwesomeIcon icon={faHouse} color="#02457a" style={{ marginRight: '10px' }} />
                     Dashboard
                   </Nav.Link>
+                 
                   <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleUsuariosClick}>
                     <FontAwesomeIcon icon={faUsers} color="#02457a" style={{ marginRight: '7px' }} />
                     Usuarios
                   </Nav.Link>
+
                   <Nav.Link onClick={() => setOpen(!open)} className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item">
                     <FontAwesomeIcon icon={faCalendarDays} color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
                     Turnos
                   </Nav.Link>
                   <Collapse in={open}>
+
                     <div id="collapseTurnos">
+                      
                       <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleCrearClick}>
                         <FontAwesomeIcon icon={faCalendarPlus} color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
                         Crear
                       </Nav.Link>
+
                       <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={() => { setShouldUpdateTable(true); handleListaClick(); }}>
                         <FontAwesomeIcon icon="fa-solid fa-list" color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
                         Lista
@@ -157,6 +185,7 @@ function AdministratorHomepage() {
                 </Dropdown.Menu>
               </Dropdown>
             </header>
+
             {mostrarTablaUsuarios ? ( // Muestra la tabla si mostrarTabla es true
               <main class="flex-grow-1 gap-4 p-4">
                 <div class="d-flex justify-content-center">
@@ -194,9 +223,14 @@ function AdministratorHomepage() {
                 </div>
               </main>
             ) : mostrarCrearShift ? (
-              <CreateShift />
+              // <CreateShift />
+              <CreateShift onShowCreateShift={handleShowCreateShift} />
             ) : mostrarListaTurnos ? (
               <ListShift />
+            ) : mostrarNuevoComponente ? (
+              // <RegistryShit /> 
+              <RegistryShit userId={selectedUser} />
+              
             ) : (
               <Dashboard />
             )}

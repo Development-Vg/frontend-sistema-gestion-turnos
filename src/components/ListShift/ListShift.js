@@ -4,6 +4,10 @@ import axios from 'axios';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+
+
+
+
 function ListShift() {
 
     const [searchValue, setSearchValue] = useState('');
@@ -19,6 +23,10 @@ function ListShift() {
         try {
             const response = await axios.get(`${backendUrl}/turnos/listAll`);
             setData(response.data);
+            console.log("lista de turnos:", response.data)
+            
+
+            console.log("respuetsa tabla de turnos :", response);
         } catch (error) {
             console.error('Error al cargar los datos', error);
         }

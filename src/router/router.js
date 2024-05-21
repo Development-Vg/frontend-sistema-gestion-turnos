@@ -3,6 +3,7 @@ import Home from "../components/home/home";
 import ModalRegister from "../components/login/login";
 import HomeAdmin from "../components/homeAdmin/homeAdmin";
 import Shift from "../components/Shift/createShift";
+import ReShift from "../components/CreateShift/RegistryShit";
 import Dependence from "../components/Shift/dependence";
 
 
@@ -13,6 +14,7 @@ function AppRouter() {
                 <Route path="/login" element={<ModalRegister />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/shift" element={<Shift />} />
+                <Route path="/Reshift" element={<ReShift />} />
                 <Route path="/homeadmin" element={<HomeAdmin />} />
                 <Route path="/dependence" element={<Dependence />} />
                 {/* <Route path="/registry" element={<Registry />} /> */}

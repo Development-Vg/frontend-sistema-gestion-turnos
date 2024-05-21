@@ -17,20 +17,29 @@ import { useKeycloak } from '../Keycloak/KeycloakContext';
 
 
 function Login() {
-    const {keycloak} = useKeycloak();
-    
-    const roles = keycloak && keycloak.tokenParsed;
-    const role = roles ? keycloak.tokenParsed.realm_access.roles : [0];
-    
+    const { keycloak } = useKeycloak();
+    const [navigation, setNavigation] = useState(null);
 
-    let navigation;
-    if (keycloak && keycloak.authenticated) {
-        if (role === "admin-role-TurnsManagementApp") {
-            navigation = <Navigate to="/home" />;
-        } else {
-            navigation = <Navigate to="/homeadmin" />;
+    useEffect(() => {
+        const isAuthenticated = keycloak && keycloak.authenticated;
+        const username = isAuthenticated ? keycloak.tokenParsed.preferred_username : 'Usuario';
+
+        console.log("usuario es :",username)
+        if (keycloak && keycloak.authenticated) {
+            const roles = keycloak.tokenParsed?.realm_access?.roles || [];
+            const firstRole = roles.length > 0 ? roles[0] : "default-role";
+           
+      
+          console.log("Roles del usuario:", roles);
+          console.log("Primer rol:", firstRole);
+    
+          if (firstRole === "admin-role-TurnsManagementApp") {
+            setNavigation(<Navigate to="/homeadmin" />);
+          } else {
+            setNavigation(<Navigate to="/home" />);
+          }
         }
-    }
+      }, [keycloak]);
 
     return (
         <div>
@@ -38,6 +47,7 @@ function Login() {
         </div>
     );
 }
+
 
 
 
