@@ -26,7 +26,7 @@ function Login() {
 
 
         // trarer rol del back pero problema con el token 
-        /*const backendUrl = process.env.REACT_APP_BCKEND;
+        const backendUrl = process.env.REACT_APP_BCKEND;
         const fetchUserRole = async () => {
 
             try {
@@ -50,7 +50,7 @@ function Login() {
             }
 
         };
-        fetchUserRole();*/
+        fetchUserRole();
 
     
     

@@ -3,6 +3,8 @@ import { Dropdown } from 'react-bootstrap';
 import axios from 'axios';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Table, Button } from 'react-bootstrap';
 
 
 
@@ -10,8 +12,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function ListShift() {
 
+
+
     const [searchValue, setSearchValue] = useState('');
     const [data, setData] = useState([]);
+
+
+    // Función para formatear la fecha
+    const formatDate = (dateString) => {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    };
+
+    // Función para formatear la hora en formato de 24 horas
+    const formatTime = (dateString) => {
+        const options = { hour: '2-digit', minute: '2-digit', hour12: false };
+        return new Date(dateString).toLocaleTimeString(undefined, options);
+    };
 
     const fetchData = async () => {
         const backendUrl = process.env.REACT_APP_BCKEND;
@@ -24,7 +41,7 @@ function ListShift() {
             const response = await axios.get(`${backendUrl}/turnosList/listAll`);
             setData(response.data);
             console.log("lista de turnos:", response.data)
-            
+
 
             console.log("respuetsa tabla de turnos :", response);
         } catch (error) {
@@ -75,35 +92,34 @@ function ListShift() {
                         </Dropdown>
 
                     </header>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div className="border rounded-lg overflow-auto inline-block" style={{ marginTop: '20px' }}>
-                <table class="table" style={{ width: '620px' }}>
-                    <thead>
-                        <tr>
-                            <th scope="col">Id turno</th>
-                            <th scope="col">Id usuario</th>
-                            <th scope="col">Dependencia</th>
-                            <th scope="col">fecha</th>
-                            <th scope="col">Turno</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((item, index) => (
-                            <tr key={index}>
-                                <th scope="row">{item.id}</th>
-                                <td>{item.userId}</td>
-                                <td>{item.dependence}</td>
-                                <td>{item.date}</td>
-                                <td>{item.shiftNumber}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-            <div style={{ marginLeft: '10px' }}>
-            <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" onClick={fetchData}  />
-            </div>
-        </div>
+
+                    <div class="border shadow-sm rounded">
+
+                        <Table>
+                            <thead className="table-dark">
+                                <tr>
+                                    <th scope="col">Id turno</th>
+                                    <th scope="col">Id usuario</th>
+                                    <th scope="col">Dependencia</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {data.map((item, index) => (
+                                    <tr key={index}>
+                                        <th scope="row">{item.id}</th>
+                                        <td>{item.userId}</td>
+                                        <td>{item.dependence}</td>
+                                        <td>{formatDate(item.date)}</td>
+                                        <td>{formatTime(item.date)}</td>
+
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+                    </div>
+
                 </div>
             </div>
         </div>

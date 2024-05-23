@@ -103,7 +103,6 @@ function RegistryShift({ userId }) {
                     </div>
                 </Col>
                 <Col xs={12}>
-                    <div><h1>Tabla</h1></div>
                     <AvailableDatesTable
                         dates={availableDates}
                         dependence={selectedDependence}

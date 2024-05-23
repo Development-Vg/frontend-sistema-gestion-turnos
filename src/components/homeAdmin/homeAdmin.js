@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './homeAdmin.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarDays, faCalendarPlus, faBell, } from '@fortawesome/free-regular-svg-icons';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Collapse, Dropdown } from 'react-bootstrap';
 import { useKeycloak } from '../Keycloak/KeycloakContext';
 import CreateShift from '../Shift/createShift';
@@ -13,6 +13,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import ListShift from '../ListShift/ListShift';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { Table, Button } from 'react-bootstrap';
 
 library.add(fas);
 
@@ -163,12 +164,9 @@ function AdministratorHomepage() {
                 <span class="visually-hidden">Home</span>
               </a>
               <div class="flex-grow-1">
-                <form>
-                  <div class="position-relative" style={{ maxWidth: '60%' }}>
-                    <i class="bi bi-search position-absolute start-0 top-50 translate-middle-y text-secondary"></i>
-                    <input class="form-control bg-white shadow-none pl-5" placeholder="Buscar usuarios..." type="search" />
-                  </div>
-                </form>
+
+
+
               </div>
               <Dropdown>
                 <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
@@ -188,14 +186,17 @@ function AdministratorHomepage() {
 
             {mostrarTablaUsuarios ? ( // Muestra la tabla si mostrarTabla es true
               <main class="flex-grow-1 gap-4 p-4">
+
                 <div class="d-flex justify-content-center">
                   <h1 class="font-weight-bold fs-5 text-center">Usuarios</h1>
                 </div>
+
+
                 <div class="border shadow-sm rounded">
-                  <table class="table">
-                    <thead>
+                  <Table>
+                  <thead className="table-dark"> 
                       <tr>
-                        <th scope="col">Id</th>
+                        <th scope="col">Ids</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
                         <th scope="col">Tipo documento</th>
@@ -219,7 +220,14 @@ function AdministratorHomepage() {
                         </tr>
                       ))}
                     </tbody>
-                  </table>
+                  </Table>
+
+                  {/* <table class="table"> */}
+
+                  {/* </table> */}
+
+
+
                 </div>
               </main>
             ) : mostrarCrearShift ? (

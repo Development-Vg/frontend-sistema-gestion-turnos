@@ -4,6 +4,8 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import './Shift.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Table, Button } from 'react-bootstrap';
 
 function CreateShift({ onShowCreateShift }) {
     const [data, setData] = useState([]);
@@ -35,6 +37,7 @@ function CreateShift({ onShowCreateShift }) {
                     <h1 className="font-weight-bold fs-5 text-center titlle">Crear Turno</h1>
                     <p className="text-gray-500 dark:text-gray-400 text-center">Buscar y selecciona Usuario.</p>
                 </div>
+                
                 <div className="space-y-4">
                     <header className="d-flex align-items-center justify-content-center gap-4 border-bottom bg-gray-100 p-3">
                         <div className="flex-grow-1" style={{ maxWidth: '50%' }}>
@@ -64,15 +67,19 @@ function CreateShift({ onShowCreateShift }) {
                             </Dropdown.Menu>
                         </Dropdown>
                     </header>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <div className="border rounded-lg overflow-auto inline-block" style={{ marginTop: '20px' }}>
-                            <table className="table" style={{ width: '620px' }}>
-                                <thead>
+                    
+                    {/* <div style={{ display: 'flex', justifyContent: 'center' }}> */}
+                        {/* <div className="border rounded-lg overflow-auto inline-block" style={{ marginTop: '20px' }}> */}
+
+                        <div class="border shadow-sm rounded">
+                        <Table>
+                            <thead className="table-dark"> 
                                     <tr>
                                         <th scope="col">Id</th>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Apellido</th>
                                         <th scope="col">N documento</th>
+                                        <th scope="col">Solicitar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,16 +94,24 @@ function CreateShift({ onShowCreateShift }) {
                                             <td>{item.lastName}</td>
                                             <td>{item.document}</td>
                                             <td>
-                                                <button className="myButton" onClick={() => onShowCreateShift(item.id)}>
+                                                < Button variant="outline-dark" onClick={() => onShowCreateShift(item.id)}>
                                                     Crear Turno
-                                                </button>
+                                                </ Button>
+
+                                                {/* <Button variant="outline-dark" onClick={() => onCreateShift(date)}>Crear Turno</Button> */}
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
-                            </table>
+
+                            </Table>
                         </div>
-                    </div>
+                            
+                            {/* <table className="table" style={{ width: '620px' }}> */}
+                               
+                            {/* </table> */}
+                        {/* </div> */}
+                    {/* </div> */}
                 </div>
             </div>
         </div>
