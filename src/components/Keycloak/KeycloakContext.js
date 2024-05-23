@@ -14,8 +14,8 @@ export const KeycloakProvider = ({ children }) => {
   // Configuración de Keycloak
   const keycloakOptions = {
     url: "http://ec2-3-12-115-86.us-east-2.compute.amazonaws.com:8080/",
-    realm: "TurnsManagementApp",
-    clientId: "react-js-frond-end"
+    realm: "prueba",
+    clientId: "TurnsManagementAppReact"
   };
 
 

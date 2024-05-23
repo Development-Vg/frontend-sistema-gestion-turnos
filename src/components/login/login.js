@@ -59,18 +59,15 @@ function Login() {
            const isAuthenticated = keycloak && keycloak.authenticated;
             const username = isAuthenticated ? keycloak.tokenParsed.preferred_username : 'Usuario';
       
-              console.log("usuario es :", username)
-      
-      
+   
             if (keycloak && keycloak.authenticated) {
                   const roles = keycloak.tokenParsed?.realm_access?.roles || [];
                   const firstRole = roles.length > 0 ? roles[0] : "default-role";
                  
             
-                console.log("Roles del usuario:", roles);
-                console.log("Primer rol:", firstRole);
-          
-                if (firstRole === "admin-role-TurnsManagementApp") {
+       
+                console.log("rol del usuario q ingreso : ", firstRole)
+                if (firstRole === "admin") {
                   setNavigation(<Navigate to="/homeadmin" />);
                 } else {
                   setNavigation(<Navigate to="/home" />);

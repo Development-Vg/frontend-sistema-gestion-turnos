@@ -58,8 +58,7 @@ function ListShift() {
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-950" style={{ marginTop: '20px' }}>
             <div className="max-w-6xl w-full space-y-6 p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
                 <div className="space-y-2">
-                    <h1 class="font-weight-bold fs-5 text-center titlle">Tabla de Turnos</h1>
-                    <p className="text-gray-500 dark:text-gray-400 text-center">Turnos creados ....</p>
+                    <h1 class="font-weight-bold fs-5 text-center titlle"   >Tabla de Turnos</h1>
                 </div>
                 <div className="space-y-4">
                     <header class="d-flex align-items-center justify-content-center gap-4 border-bottom bg-gray-100 p-3" >

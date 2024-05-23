@@ -33,6 +33,7 @@ function RegistryShift({ userId }) {
         console.log("la dependencia es:", dependence, " la fecha que envio: ", formattedDate)
 
         try {
+            console.log("de ", dependence)
             const response = await axios.get(`${backendUrl}/turnosList/listAvailableShifts`, { params: { dependence, date: formattedDate } });
             setAvailableDates(response.data);
         } catch (error) {
@@ -47,6 +48,10 @@ function RegistryShift({ userId }) {
 
     const handleDependenceSelect = (dependence) => {
         setSelectedDependence(dependence);
+
+        if (dependence === '') {
+            setAvailableDates([]);
+        }
     };
 
     const handleDateChange = (date) => {
@@ -79,13 +84,23 @@ function RegistryShift({ userId }) {
         }
     }
 
+    // fecha actual
+    const today = new Date();
+
+    // Calcula el primer día del mes siguiente
+    const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+
+    // Calcula el último día del mes siguiente
+    const lastDayOfNextMonth = new Date(nextMonth.getFullYear(), nextMonth.getMonth() + 1, 0);
+
+
     return (
         <Container>
             <Row>
                 <Col xs={6}>
                     <div className="mb-3 justify-content-center">
                         <label htmlFor="date" className="form-label">Seleccionar Fecha</label><br />
-                        <DatePicker id="date" selected={selectedDate} onChange={handleDateChange} className="form-control" />
+                        <DatePicker id="date" selected={selectedDate} onChange={handleDateChange} className="form-control" minDate={today} maxDate={lastDayOfNextMonth} />
                     </div>
                 </Col>
                 <Col xs={6}>
