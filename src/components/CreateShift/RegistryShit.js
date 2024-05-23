@@ -17,8 +17,12 @@ function RegistryShift({ userId }) {
         }
     }, [selectedDependence, selectedDate]);
 
-    const fetchAvailableDates = (dependence, date) => {
+    const fetchAvailableDates = async (dependence, date) => {
         if (!dependence || !date) return;
+
+
+        const formattedDate = date.toString().split('(')[0].trim();
+
 
         const backendUrl = process.env.REACT_APP_BCKEND;
         if (!backendUrl) {
@@ -26,15 +30,21 @@ function RegistryShift({ userId }) {
             return;
         }
 
-        // Realizar la solicitud al backend para obtener las fechas disponibles
-        axios.get(`${backendUrl}/turnosList/listAvailableShifts`, { params: { dependence, date } })
-            .then(response => {
-                setAvailableDates(response.data);
-            })
-            .catch(error => {
-                console.error('Error al obtener fechas disponibles', error);
-            });
+        console.log("la dependencia es:", dependence, " la fecha que envio: ", formattedDate)
+
+        try {
+            const response = await axios.get(`${backendUrl}/turnosList/listAvailableShifts`, { params: { dependence, date: formattedDate } });
+            setAvailableDates(response.data);
+        } catch (error) {
+            console.error('Error al obtener fechas disponibles', error);
+        }
+
+
+
+
+
     };
+
     const handleDependenceSelect = (dependence) => {
         setSelectedDependence(dependence);
     };
@@ -43,7 +53,7 @@ function RegistryShift({ userId }) {
         setSelectedDate(date);
     };
 
-    
+
 
 
     async function handleConfirmShiftClick(date) {
@@ -52,7 +62,7 @@ function RegistryShift({ userId }) {
             return;
         }
 
-        console.log ("fecha es:, ",date)
+        console.log("fecha es:, ", date)
         const backendUrl = process.env.REACT_APP_BCKEND;
         const data = {
             userId: parseInt(selectedUser, 10),

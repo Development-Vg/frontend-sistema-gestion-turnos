@@ -21,7 +21,7 @@ function ListShift() {
         }
 
         try {
-            const response = await axios.get(`${backendUrl}/turnos/listAll`);
+            const response = await axios.get(`${backendUrl}/turnosList/listAll`);
             setData(response.data);
             console.log("lista de turnos:", response.data)
             

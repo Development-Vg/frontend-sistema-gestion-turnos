@@ -16,30 +16,68 @@ import { Navigate } from 'react-router-dom';
 import { useKeycloak } from '../Keycloak/KeycloakContext';
 
 
+import axios from 'axios';
+
 function Login() {
     const { keycloak } = useKeycloak();
     const [navigation, setNavigation] = useState(null);
 
     useEffect(() => {
-        const isAuthenticated = keycloak && keycloak.authenticated;
-        const username = isAuthenticated ? keycloak.tokenParsed.preferred_username : 'Usuario';
 
-        console.log("usuario es :",username)
-        if (keycloak && keycloak.authenticated) {
-            const roles = keycloak.tokenParsed?.realm_access?.roles || [];
-            const firstRole = roles.length > 0 ? roles[0] : "default-role";
-           
-      
-          console.log("Roles del usuario:", roles);
-          console.log("Primer rol:", firstRole);
+
+        // trarer rol del back pero problema con el token 
+        /*const backendUrl = process.env.REACT_APP_BCKEND;
+        const fetchUserRole = async () => {
+
+            try {
+                if (keycloak && keycloak.authenticated) {
+                    //const accessToken = await keycloak.accessToken;
+                    //  const accessToken =keycloak.tokenParsed
+                    await keycloak.updateToken();
+                    const accessToken = keycloak.token;
+                    console.log("el token es:  ", accessToken)
+                    const config = {
+                        headers: { Authorization: `Bearer ${accessToken}` } // encabezado peticion
+                    };
+
+                    const response = await axios.get(`${backendUrl}/listUsers/login`, config);
+                    console.log("el rol es: ", response)
+
+                }
+
+            } catch (error) {
+                console.error('Error al obtener el rol', error);
+            }
+
+        };
+        fetchUserRole();*/
+
     
-          if (firstRole === "admin-role-TurnsManagementApp") {
-            setNavigation(<Navigate to="/homeadmin" />);
-          } else {
-            setNavigation(<Navigate to="/home" />);
-          }
-        }
-      }, [keycloak]);
+    
+        // parte sin el  rol del back
+
+           const isAuthenticated = keycloak && keycloak.authenticated;
+            const username = isAuthenticated ? keycloak.tokenParsed.preferred_username : 'Usuario';
+      
+              console.log("usuario es :", username)
+      
+      
+            if (keycloak && keycloak.authenticated) {
+                  const roles = keycloak.tokenParsed?.realm_access?.roles || [];
+                  const firstRole = roles.length > 0 ? roles[0] : "default-role";
+                 
+            
+                console.log("Roles del usuario:", roles);
+                console.log("Primer rol:", firstRole);
+          
+                if (firstRole === "admin-role-TurnsManagementApp") {
+                  setNavigation(<Navigate to="/homeadmin" />);
+                } else {
+                  setNavigation(<Navigate to="/home" />);
+                }
+              }
+
+    }, [keycloak]);
 
     return (
         <div>
@@ -55,7 +93,6 @@ function Login() {
 
 function Login1() {
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 

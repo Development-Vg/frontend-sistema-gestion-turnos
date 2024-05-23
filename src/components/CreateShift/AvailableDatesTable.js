@@ -1,7 +1,10 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap';
 
+
+
 function AvailableDatesTable({ dates, dependence, onCreateShift }) {
+
     // Función para formatear la fecha
     const formatDate = (dateString) => {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };

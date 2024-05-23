@@ -19,7 +19,7 @@ function CreateShift({ onShowCreateShift }) {
             }
 
             try {
-                const response = await axios.get(`${backendUrl}/list/listAll`);
+                const response = await axios.get(`${backendUrl}/listUsers/listAll`);
                 setData(response.data);
             } catch (error) {
                 console.error('Error al cargar los datos', error);
