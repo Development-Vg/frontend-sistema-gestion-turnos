@@ -9,9 +9,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   // <React.StrictMode>
-  <KeycloakProvider>
+  //<KeycloakProvider>
     <Router />
-  </KeycloakProvider>
+ // </KeycloakProvider>
 
   // </React.StrictMode>
 );
