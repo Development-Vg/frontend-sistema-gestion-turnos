@@ -20,15 +20,16 @@ library.add(fas);
 
 function AdministratorHomepage() {
 
-  const { keycloak, handleLogout } = useKeycloak();
+  const keycloak = useKeycloak();
 
-  const isAuthenticated = keycloak && keycloak.authenticated;
-  const username = isAuthenticated ? keycloak.tokenParsed.preferred_username : 'Usuario';
-  const roles = isAuthenticated ? keycloak.tokenParsed.realm_access.roles : [0];
+  const handleLogout = async () => {
+    if (keycloak) {
+      await keycloak.logout({ redirectUri: 'http://localhost:3000/' });
+      // Aquí puedes actualizar el estado de la autenticación en tu aplicación si es necesario
+    }
+  };
 
-
-  const token = isAuthenticated ? keycloak.token : 'Token no disponible';
-
+  
 
 
   //console.log('Token:', token);
@@ -171,7 +172,7 @@ function AdministratorHomepage() {
               <Dropdown>
                 <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                   <FontAwesomeIcon icon={["fas", "user-tie"]} style={{ marginRight: '10px' }} />
-                  {username}
+                 
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu align="right">

@@ -1,38 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './login.css';
-
-
 import Example1 from '../registry/registry';
 import { Row } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
-
-
-import { useEffect, useState } from 'react';
-// import Keycloak from 'keycloak-js';
+import { useKeycloak } from '../Keycloak/KeycloakContext';
+import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 
-
-///
-import { useKeycloak } from '../Keycloak/KeycloakContext';
-
-
-import axios from 'axios';
-
 function Login() {
-    const { keycloak } = useKeycloak();
+    const keycloak = useKeycloak();
     const [navigation, setNavigation] = useState(null);
 
+    const handleLogin = () => {
+        keycloak.login();
+    };
+
     useEffect(() => {
-
-
         // trarer rol del back pero problema con el token 
         const backendUrl = process.env.REACT_APP_BCKEND;
         const fetchUserRole = async () => {
-
             try {
                 if (keycloak && keycloak.authenticated) {
-                    //const accessToken = await keycloak.accessToken;
-                    //  const accessToken =keycloak.tokenParsed
                     await keycloak.updateToken();
                     const accessToken = keycloak.token;
                     console.log("el token es:  ", accessToken)
@@ -42,46 +30,39 @@ function Login() {
 
                     const response = await axios.get(`${backendUrl}/listUsers/login`, config);
                     console.log("el rol es: ", response)
-
                 }
-
             } catch (error) {
                 console.error('Error al obtener el rol', error);
             }
-
         };
         fetchUserRole();
 
-    
-    
         // parte sin el  rol del back
+        const isAuthenticated = keycloak && keycloak.authenticated;
+        const username = isAuthenticated ? keycloak.tokenParsed.preferred_username : 'Usuario';
 
-           const isAuthenticated = keycloak && keycloak.authenticated;
-            const username = isAuthenticated ? keycloak.tokenParsed.preferred_username : 'Usuario';
-      
-   
-            if (keycloak && keycloak.authenticated) {
-                  const roles = keycloak.tokenParsed?.realm_access?.roles || [];
-                  const firstRole = roles.length > 0 ? roles[0] : "default-role";
-                 
-            
-       
-                console.log("rol del usuario q ingreso : ", firstRole)
-                if (firstRole === "admin") {
-                  setNavigation(<Navigate to="/homeadmin" />);
-                } else {
-                  setNavigation(<Navigate to="/home" />);
-                }
-              }
+        if (keycloak && keycloak.authenticated) {
+            const roles = keycloak.tokenParsed?.realm_access?.roles || [];
+            console.log('Roles:', roles);
+            const isAdmin = roles.includes('admin');
+            console.log("Es admin: ", isAdmin)
+            if (isAdmin) {
+                setNavigation(<Navigate to="/homeadmin" />);
+            } else {
+                setNavigation(<Navigate to="/home" />);
+            }
+        }
 
     }, [keycloak]);
 
     return (
         <div>
             {navigation}
+            
         </div>
     );
 }
+
 
 
 
