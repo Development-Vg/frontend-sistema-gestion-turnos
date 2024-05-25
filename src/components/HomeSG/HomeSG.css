@@ -38,3 +38,6 @@ header.icon {
   background-color: #1eb2a6;
   color: #fff;
 }
+.button:hover{
+  box-shadow: none;
+}

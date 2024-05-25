@@ -18,9 +18,11 @@ export const Header = () => {
                         <li><Link to="/servicos">Jornada</Link></li>
                         <li><Link to="/servicos">Contacto</Link></li>
                     </ul>
+                    <div className="start_1">
+                        <div className="button">Registrarse</div>
+                    </div>
                     <div className="start">
-                        <div className="button">Resgistrarse</div>
-                        <div className="button">Iniciar Sesion</div>
+                    <div className="button">Iniciar Sesion</div>
                     </div>
                 </nav>
 
