@@ -4,6 +4,7 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import AvailableDatesTable from './AvailableDatesTable';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function RegistryShift({ userId }) {
     const [availableDates, setAvailableDates] = useState([]);
@@ -97,10 +98,16 @@ function RegistryShift({ userId }) {
     return (
         <Container>
             <Row>
+            <Col xs={12} className=" mt-4 mb-4">
+            <dIv className="d-flex align-items-center">
+            <FontAwesomeIcon icon="fa-solid fa-calendar-plus"   size="2x" className="me-4"/>  <h3> Solicitud de Turnos</h3>
+            </dIv>   
+            </Col>
+                
                 <Col xs={6}>
                     <div className="mb-3 justify-content-center">
                         <label htmlFor="date" className="form-label">Seleccionar Fecha</label><br />
-                        <DatePicker id="date" selected={selectedDate} onChange={handleDateChange} className="form-control" minDate={today} maxDate={lastDayOfNextMonth} />
+                        <DatePicker id="date" selected={selectedDate} onChange={handleDateChange}   autoComplete="off" className="form-control" minDate={today} maxDate={lastDayOfNextMonth} />
                     </div>
                 </Col>
                 <Col xs={6}>

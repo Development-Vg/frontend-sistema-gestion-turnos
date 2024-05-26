@@ -16,11 +16,11 @@
     background-color: #ffffff;
   }
   .nav-item:hover {
-    background-color: #f3f4f6; /* Cambia esto al color que desees */
+    background-color: #f4f4f4; /* Cambia esto al color que desees */
     transform: translateX(1.5px); /* Esto moverá el enlace 10px a la derecha */
     font-weight: bold;
   }
   .menu{
-    background-color: #fafbfb;
+    background-color: #a5c8ce;
   }
   

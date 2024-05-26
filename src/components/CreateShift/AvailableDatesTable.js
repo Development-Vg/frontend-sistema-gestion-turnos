@@ -21,7 +21,7 @@ function AvailableDatesTable({ dates, dependence, onCreateShift }) {
     return (
         <div class="border shadow-sm rounded">
             <Table striped bordered hover >
-                <thead className="table-dark">
+                <thead className="table-info">
 
                     <tr>
                         <th>Acción</th>
@@ -33,7 +33,7 @@ function AvailableDatesTable({ dates, dependence, onCreateShift }) {
                 <tbody>
                     {dates.map((date, index) => (
                         <tr key={index} >
-                            <td><Button variant="outline-dark" onClick={() => onCreateShift(date)}>Crear Turno</Button></td>
+                            <td><Button variant="outline-warning" onClick={() => onCreateShift(date)}>Crear Turno</Button></td>
                             <td>{formatDate(date)}</td>
                             <td>{formatTime(date)}</td>
                             <td>{dependence}</td>

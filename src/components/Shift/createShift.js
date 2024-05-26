@@ -64,18 +64,12 @@ function CreateShift({ onShowCreateShift }) {
                         </Col>
 
 
-
-
                     </Row>
-
-
-
-
 
 
                     <div class="border shadow-sm rounded">
                         <Table>
-                            <thead className="table-dark">
+                            <thead className="table-info">
                                 <tr>
                                     <th scope="col">Id</th>
                                     <th scope="col">Nombre</th>
@@ -96,7 +90,7 @@ function CreateShift({ onShowCreateShift }) {
                                         <td>{item.lastName}</td>
                                         <td>{item.document}</td>
                                         <td>
-                                            < Button variant="outline-dark" onClick={() => onShowCreateShift(item.id)}>
+                                            < Button variant="outline-warning" onClick={() => onShowCreateShift(item.id)}>
                                                 Crear Turno
                                             </ Button>
 
@@ -109,11 +103,6 @@ function CreateShift({ onShowCreateShift }) {
                         </Table>
                     </div>
 
-                    {/* <table className="table" style={{ width: '620px' }}> */}
-
-                    {/* </table> */}
-                    {/* </div> */}
-                    {/* </div> */}
                 </div>
             </div>
         </div>

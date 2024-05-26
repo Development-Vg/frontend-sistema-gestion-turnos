@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './homeAdmin.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers, faHouse } from '@fortawesome/free-solid-svg-icons';
@@ -29,12 +29,6 @@ function AdministratorHomepage() {
     }
   };
 
-  
-
-
-  //console.log('Token:', token);
-  // console.log('role:', roles);
-
 
 
   const [data, setData] = useState([]);
@@ -58,6 +52,12 @@ function AdministratorHomepage() {
 
     fetchData();
   }, []);
+
+ 
+
+
+
+  
 
   const [open, setOpen] = useState(false);
   const [mostrarTablaUsuarios, setMostrarTablaUsuarios] = useState(false);
@@ -115,7 +115,7 @@ function AdministratorHomepage() {
             <div class="d-flex flex-column h-100 gap-2">
               <div class="d-flex align-items-center border-bottom px-5" style={{ height: '70px' }} >
                 <a href="#" class="d-flex align-items-center gap-2 font-semibold text-decoration-none">
-                  <FontAwesomeIcon icon={faBell} style={{ marginRight: '10px' }} />
+                  {/* <FontAwesomeIcon icon={faBell} style={{ marginRight: '10px' }} /> */}
                   <span class="home" >Admin Dashboard</span>
                 </a>
                 <button class="ms-auto btn btn-outline-secondary">
@@ -126,17 +126,17 @@ function AdministratorHomepage() {
               <div className="flex-grow-1 py-2">
                 <Nav className="flex-column">
                   <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" onClick={handleDashboardClick}>
-                    <FontAwesomeIcon icon={faHouse} color="#02457a" style={{ marginRight: '10px' }} />
-                    Dashboard
+                  <FontAwesomeIcon icon="fa-solid fa-user-tie"  color="7c817d" style={{ marginRight: '10px' }}  />
+                    Atención de Turno
                   </Nav.Link>
 
-                  <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleUsuariosClick}>
-                    <FontAwesomeIcon icon={faUsers} color="#02457a" style={{ marginRight: '7px' }} />
+                  <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark   nav-item" href="#" onClick={handleUsuariosClick}>
+                    <FontAwesomeIcon icon={faUsers} color="7c817d" style={{ marginRight: '7px' }} />
                     Usuarios
                   </Nav.Link>
 
                   <Nav.Link onClick={() => setOpen(!open)} className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item">
-                    <FontAwesomeIcon icon={faCalendarDays} color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
+                    <FontAwesomeIcon icon={faCalendarDays} color="7c817d" style={{ marginLeft: '3px', marginRight: '11px' }} />
                     Turnos
                   </Nav.Link>
                   <Collapse in={open}>
@@ -144,12 +144,12 @@ function AdministratorHomepage() {
                     <div id="collapseTurnos">
 
                       <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleCrearClick}>
-                        <FontAwesomeIcon icon={faCalendarPlus} color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
+                        <FontAwesomeIcon icon={faCalendarPlus} color="7c817d" style={{ marginLeft: '3px', marginRight: '11px' }} />
                         Crear
                       </Nav.Link>
 
                       <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={() => { setShouldUpdateTable(true); handleListaClick(); }}>
-                        <FontAwesomeIcon icon="fa-solid fa-list" color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
+                        <FontAwesomeIcon icon="fa-solid fa-list" color="7c817d" style={{ marginLeft: '3px', marginRight: '11px' }} />
                         Lista
                       </Nav.Link>
                     </div>
@@ -172,7 +172,8 @@ function AdministratorHomepage() {
               <Dropdown>
                 <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                   <FontAwesomeIcon icon={["fas", "user-tie"]} style={{ marginRight: '10px' }} />
-                 
+                 {/* colocarlo nombre del suario  */}
+                 user
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu align="right">
@@ -194,15 +195,19 @@ function AdministratorHomepage() {
 
 
                 <div class="border shadow-sm rounded">
+
+                
+
+
                   <Table>
-                  <thead className="table-dark"> 
+                  <thead className="table-info"> 
                       <tr>
-                        <th scope="col">Ids</th>
+                        <th scope="col">Id</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
                         <th scope="col">Tipo documento</th>
                         <th scope="col">N documento</th>
-                        <th scope="col">Dirección</th>
+                        {/* <th scope="col">Dirección</th> */}
                         <th scope="col">Correo</th>
                         <th scope="col">Celular</th>
                       </tr>
@@ -215,7 +220,7 @@ function AdministratorHomepage() {
                           <td>{item.lastName}</td>
                           <td>{item.typeDocument}</td>
                           <td>{item.document}</td>
-                          <td>{item.addres}</td>
+                          {/* <td>{item.addres}</td> */}
                           <td>{item.email}</td>
                           <td>{item.celphone}</td>
                         </tr>

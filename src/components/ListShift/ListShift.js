@@ -95,7 +95,7 @@ function ListShift() {
                     <div class="border shadow-sm rounded">
 
                         <Table>
-                            <thead className="table-dark">
+                            <thead className="table-info">
                                 <tr>
                                     <th scope="col">Id turno</th>
                                     <th scope="col">Id usuario</th>
