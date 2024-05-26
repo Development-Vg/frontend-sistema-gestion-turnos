@@ -106,3 +106,6 @@ button:hover{
     background-color: #1f9086;
     color: #ffffff;
 }
+li a {
+    text-decoration: none;
+}
