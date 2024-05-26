@@ -30,6 +30,7 @@ function Home() {
   };
 
   const [data, setData] = useState([]);
+  const [username, setUsername] = useState('Usuario');
 
 
   useEffect(() => {
@@ -50,6 +51,13 @@ function Home() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (keycloak && keycloak.tokenParsed) {
+      const usernameFromToken = keycloak.tokenParsed.preferred_username || 'Usuario';
+      setUsername(usernameFromToken);
+    }
+  }, [keycloak]);
 
   const [open, setOpen] = useState(false);
   const [mostrarCrearShift, setMostrarCrearShift] = useState(false);
@@ -161,7 +169,7 @@ function Home() {
               <Dropdown>
                 <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                   <FontAwesomeIcon icon={["fas", "user-tie"]} style={{ marginRight: '10px' }} />
-                
+                  {username}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu align="right">
