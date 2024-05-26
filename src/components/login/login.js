@@ -11,61 +11,43 @@ function Login() {
     const keycloak = useKeycloak();
     const [navigation, setNavigation] = useState(null);
 
-    const handleLogin = () => {
-        keycloak.login();
-    };
-
     useEffect(() => {
-        // trarer rol del back pero problema con el token 
-        const backendUrl = process.env.REACT_APP_BCKEND;
         const fetchUserRole = async () => {
-            try {
-                if (keycloak && keycloak.authenticated) {
-                    await keycloak.updateToken();
-                    const accessToken = keycloak.token;
-                    console.log("el token es:  ", accessToken)
-                    const config = {
-                        headers: { Authorization: `Bearer ${accessToken}` } // encabezado peticion
-                    };
+            if (keycloak && keycloak.authenticated) {
+                await keycloak.updateToken();
+                const accessToken = keycloak.token;
+                const config = {
+                    headers: { Authorization: `Bearer ${accessToken}` }
+                };
 
-                    const response = await axios.get(`${backendUrl}/listUsers/login`, config);
-                    console.log("el rol es: ", response)
+                try {
+                    const response = await axios.get(`${process.env.REACT_APP_BCKEND}/listUsers/login`, config);
+                    console.log("el rol es: ", response);
+                } catch (error) {
+                    console.error('Error al obtener el rol', error);
                 }
-            } catch (error) {
-                console.error('Error al obtener el rol', error);
+
+                const roles = keycloak.tokenParsed?.realm_access?.roles || [];
+                const isAdmin = roles.includes('admin');
+                setNavigation(isAdmin ? <Navigate to="/homeadmin" /> : <Navigate to="/home" />);
             }
         };
+
         fetchUserRole();
+    }, [keycloak]);
 
-        // parte sin el  rol del back
-        const isAuthenticated = keycloak && keycloak.authenticated;
-        const username = isAuthenticated ? keycloak.tokenParsed.preferred_username : 'Usuario';
-
-        if (keycloak && keycloak.authenticated) {
-            const roles = keycloak.tokenParsed?.realm_access?.roles || [];
-            console.log('Roles:', roles);
-            const isAdmin = roles.includes('admin');
-            console.log("Es admin: ", isAdmin)
-            if (isAdmin) {
-                setNavigation(<Navigate to="/homeadmin" />);
-            } else {
-                setNavigation(<Navigate to="/home" />);
-            }
+    useEffect(() => {
+        if (keycloak && !keycloak.authenticated) {
+            keycloak.login();
         }
-
     }, [keycloak]);
 
     return (
         <div>
             {navigation}
-            
         </div>
     );
 }
-
-
-
-
 
 
 

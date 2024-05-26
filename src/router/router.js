@@ -8,22 +8,24 @@ import Dependence from "../components/Shift/dependence";
 import HomeSG from "../components/HomeSG/HomeSG";
 
 
+
+
 function AppRouter() {
     return (
-        <Router>
-            <Routes>
-                <Route path="/login" element={<ModalRegister />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/shift" element={<Shift />} />
-                <Route path="/Reshift" element={<ReShift />} />
-                <Route path="/homeadmin" element={<HomeAdmin />} />
-                <Route path="/dependence" element={<Dependence />} />
-                <Route path="/homeSG" element={<HomeSG />} />
-                <Route path="*" element={<Navigate to="/homeSG" />} />
-            </Routes>
-        </Router>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<ModalRegister />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/shift" element={<Shift />} />
+          <Route path="/Reshift" element={<ReShift />} />
+          <Route path="/homeadmin" element={<HomeAdmin />} />
+          <Route path="/dependence" element={<Dependence />} />
+          <Route path="/homeSG" element={<HomeSG />} />
+          <Route path="*" element={<Navigate to="/homeSG" />} />
+        </Routes>
+      </Router>
     );
-}
+  }
 
 
 
