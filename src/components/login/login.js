@@ -16,16 +16,17 @@ function Login() {
             if (keycloak && keycloak.authenticated) {
                 await keycloak.updateToken();
                 const accessToken = keycloak.token;
+                
                 const config = {
                     headers: { Authorization: `Bearer ${accessToken}` }
                 };
 
-                try {
+               /* try {
                     const response = await axios.get(`${process.env.REACT_APP_BCKEND}/listUsers/login`, config);
                     console.log("el rol es: ", response);
                 } catch (error) {
                     console.error('Error al obtener el rol', error);
-                }
+                }*/
 
                 const roles = keycloak.tokenParsed?.realm_access?.roles || [];
                 const isAdmin = roles.includes('admin');

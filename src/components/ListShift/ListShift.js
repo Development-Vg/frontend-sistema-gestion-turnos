@@ -5,6 +5,7 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button } from 'react-bootstrap';
+import { Row , Col } from 'react-bootstrap';
 
 
 
@@ -57,9 +58,23 @@ function ListShift() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-950" style={{ marginTop: '20px' }}>
             <div className="max-w-6xl w-full space-y-6 p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                <div className="space-y-2">
-                    <h1 class="font-weight-bold fs-5 text-center titlle"   >Tabla de Turnos</h1>
+
+
+                <dIv className="d-flex align-items-center m-2">
+                    <FontAwesomeIcon icon="fa fa-history" size="2x" className="me-4 " />  <h3>  Mi Historial de Turnos</h3>
+                </dIv>
+
+                <div>
+                    <Row>
+                        <Col xs={4}>
+                            <div >
+
+                            </div>
+                        </Col>
+                    </Row>
+
                 </div>
+
                 <div className="space-y-4">
                     <header class="d-flex align-items-center justify-content-center gap-4 border-bottom bg-gray-100 p-3" >
                         <div class="flex-grow-1 " style={{ maxWidth: '50%' }}>
@@ -75,7 +90,7 @@ function ListShift() {
                                 </div>
                             </form>
                         </div>
-                        <Dropdown>
+                        {/* <Dropdown> 
                             <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                                 <FontAwesomeIcon icon={faFilter} style={{ marginRight: '10px' }} />
                                 Filtros
@@ -88,7 +103,7 @@ function ListShift() {
                                 <Dropdown.Divider />
 
                             </Dropdown.Menu>
-                        </Dropdown>
+                        </Dropdown>*/}
 
                     </header>
 

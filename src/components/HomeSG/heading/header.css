@@ -8,9 +8,10 @@
     font-weight: 900;
     color: #ffffff;
 }
+
 .logo span {
-    color: #ffffff; /* Cambia esto al color que desees */
-  }
+    color: #ffffff;  /* Cambia esto al color que desees */
+}
 .head .header-icon {
     margin-left: 10px;
 }
@@ -76,9 +77,8 @@ li{
 button{
     border: none;
 }
-.row{
-    width: 50%;
-}
+
+
 .option{
     list-style-type: disc; /* Opciones: disc, circle, square, none */
 }

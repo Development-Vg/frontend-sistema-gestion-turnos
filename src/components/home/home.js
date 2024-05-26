@@ -121,19 +121,10 @@ function Home() {
                 
                 <Nav className="flex-column" >
             
-            
-                  <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" onClick={handleDashboardClick}>
-                  <FontAwesomeIcon icon="fa-solid fa-user-tie"  color="7c817d" style={{ marginRight: '10px' }}  />
-                    Atención de Turno
-                  </Nav.Link>
 
-                  <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleUsuariosClick}>
-                    <FontAwesomeIcon icon={faUsers} color="#02457a" style={{ marginRight: '7px' }} />
-                    Usuarios
-                  </Nav.Link>
 
                   <Nav.Link onClick={() => setOpen(!open)} className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item">
-                    <FontAwesomeIcon icon={faCalendarDays} color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
+                    <FontAwesomeIcon icon={faCalendarDays} color="7c817d" style={{ marginLeft: '3px', marginRight: '11px' }} />
                     Turnos
                   </Nav.Link>
                   <Collapse in={open}>
@@ -141,12 +132,12 @@ function Home() {
                     <div id="collapseTurnos">
 
                       <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleShowCreateShift}>
-                        <FontAwesomeIcon icon={faCalendarPlus} color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
+                        <FontAwesomeIcon icon={faCalendarPlus} color="7c817d"  style={{ marginLeft: '3px', marginRight: '11px' }} />
                         Solicitar Turno
                       </Nav.Link>
 
                       <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={() => { setShouldUpdateTable(true); handleListaClick(); }}>
-                        <FontAwesomeIcon icon="fa-solid fa-list" color="#02457a" style={{ marginLeft: '3px', marginRight: '11px' }} />
+                        <FontAwesomeIcon icon="fa-solid fa-list" color="7c817d" style={{ marginLeft: '3px', marginRight: '11px' }} />
                         Ver Historial
                       </Nav.Link>
                     </div>
