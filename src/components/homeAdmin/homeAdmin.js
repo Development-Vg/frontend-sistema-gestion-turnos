@@ -32,7 +32,7 @@ function AdministratorHomepage() {
 
 
   const [data, setData] = useState([]);
-
+  const [username, setUsername] = useState('Usuario');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,6 +54,12 @@ function AdministratorHomepage() {
   }, []);
 
  
+  useEffect(() => {
+    if (keycloak && keycloak.tokenParsed) {
+      const usernameFromToken = keycloak.tokenParsed.preferred_username || 'Usuario';
+      setUsername(usernameFromToken);
+    }
+  }, [keycloak]);
 
 
 
@@ -173,7 +179,7 @@ function AdministratorHomepage() {
                 <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                   <FontAwesomeIcon icon={["fas", "user-tie"]} style={{ marginRight: '10px' }} />
                  {/* colocarlo nombre del suario  */}
-                 user
+                 {username}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu align="right">

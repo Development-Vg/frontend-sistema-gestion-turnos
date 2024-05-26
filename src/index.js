@@ -54,9 +54,9 @@ root.render(
 
   </div>*/
   // <React.StrictMode>
-  <KeycloakProvider>
+  //<KeycloakProvider>
     <Router />
-  </KeycloakProvider>
+ // </KeycloakProvider>
 
   // </React.StrictMode>
 );

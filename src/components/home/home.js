@@ -105,10 +105,12 @@ function Home() {
           <div class="col-lg-3 border-end bg-gray-100 p-0 menu">
             <div class="d-flex flex-column h-100 gap-2">
               <div class="d-flex align-items-center border-bottom px-5" style={{ height: '70px' }} >
+
                 <a href="#" class="d-flex align-items-center gap-2 font-semibold text-decoration-none">
-                  <FontAwesomeIcon icon={faBell} style={{ marginRight: '10px' }} />
+                  {/* <FontAwesomeIcon icon={faBell} style={{ marginRight: '10px' }} /> */}
                   <span class="home" >Dashboard</span>
                 </a>
+
                 <button class="ms-auto btn btn-outline-secondary">
                   <FontAwesomeIcon icon="fa-regular fa-bell" />
                   <span class="visually-hidden">Toggle notifications</span>
@@ -117,11 +119,12 @@ function Home() {
 
               <div className="flex-grow-1 py-2">
                 
-                <Nav className="flex-column"  bg="dark"  data-bs-theme="dark " >
-                {/* <Navbar bg="dark" data-bs-theme="dark " className="flex-column"> */}
+                <Nav className="flex-column" >
+            
+            
                   <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" onClick={handleDashboardClick}>
-                    <FontAwesomeIcon icon={faHouse} color="#02457a" style={{ marginRight: '10px' }} />
-                    Dashboard
+                  <FontAwesomeIcon icon="fa-solid fa-user-tie"  color="7c817d" style={{ marginRight: '10px' }}  />
+                    Atención de Turno
                   </Nav.Link>
 
                   <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleUsuariosClick}>

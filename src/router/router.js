@@ -5,6 +5,7 @@ import HomeAdmin from "../components/homeAdmin/homeAdmin";
 import Shift from "../components/Shift/createShift";
 import ReShift from "../components/CreateShift/RegistryShit";
 import Dependence from "../components/Shift/dependence";
+import HomeSG from "../components/HomeSG/HomeSG";
 
 
 function AppRouter() {
@@ -17,8 +18,8 @@ function AppRouter() {
                 <Route path="/Reshift" element={<ReShift />} />
                 <Route path="/homeadmin" element={<HomeAdmin />} />
                 <Route path="/dependence" element={<Dependence />} />
-                {/* <Route path="/registry" element={<Registry />} /> */}
-                <Route path="*" element={<Navigate to="/login" />} />
+                <Route path="/homeSG" element={<HomeSG />} />
+                <Route path="*" element={<Navigate to="/homeSG" />} />
             </Routes>
         </Router>
     );
