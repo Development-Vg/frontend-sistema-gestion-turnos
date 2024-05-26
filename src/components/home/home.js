@@ -69,6 +69,22 @@ function Home() {
 
 
 
+
+  const handleListaClick = () => {
+    setMostrarCrearShift(false);
+    setMostrarListaTurnos(true);
+    setMostrarNuevoComponente(false);
+    setshowShiftHistory(false);
+  };
+
+  
+  const handleDashboardClick = () => {
+    setMostrarCrearShift(false);
+    setMostrarListaTurnos(false);
+    setMostrarNuevoComponente(false);
+    setshowShiftHistory(false);
+  };
+
   const handleShowCreateShift = (userId) => {
     setSelectedUser(userId);
     setMostrarCrearShift(false);
@@ -85,9 +101,7 @@ function Home() {
   };
 
 
-
   return (
-
     <div>
       <div class="container-fluid" style={{ height: '100vh' }}>
         <div class="row h-100">
@@ -97,7 +111,7 @@ function Home() {
 
                 <a href="#" class="d-flex align-items-center gap-2 font-semibold text-decoration-none">
                   {/* <FontAwesomeIcon icon={faBell} style={{ marginRight: '10px' }} /> */}
-                  <span class="home" >Dashboard</span>
+                  <span class="home"  onClick={handleDashboardClick}>Dashboard</span>
                 </a>
 
                 <button class="ms-auto btn btn-outline-secondary">

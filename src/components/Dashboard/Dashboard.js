@@ -1,8 +1,26 @@
 import React from "react";
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 
 function Dashboard() {
     return (
+
+        <Container>
+            <Row>
+            <Col xs={12}>
+                va la imagen lofgo.jpg
+            </Col>
+                <Col xs={6}>
+                    
+                    <p>¡Bienvenido a la Plataforma de Solicitud de Turnos de la Clínica SDGT!</p>
+                    <p>Nos complace darle la bienvenida a nuestra plataforma diseñada para facilitar la gestión de sus citas médicas.
+                        Aquí podrá:</p>
+                </Col>
+            </Row>
+
+
+        </Container>
+
+        /*
         <main className="container my-4 ">
             <div className="d-flex justify-content-center align-items-center mb-4">
                 <h1 className="h3">Atención de turno</h1>
@@ -73,7 +91,7 @@ function Dashboard() {
                     </Button>
                 </div>
             </Card>
-        </main>
+        </main>*/
     );
 }
 

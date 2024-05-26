@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 
+
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -100,8 +101,8 @@ function ModalRegister({ show, handleClose }) {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary">cancelar</Button>
-                    <Button variant="primary">Registrar</Button>
+                    <Button variant="outline-secondary">cancelar</Button>
+                    < Button variant="outline-warning" >Registrar </ Button>
                 </Modal.Footer>
             </Modal>
         </div>
