@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import {Head} from "./Head";
 import "./header.css";
 import "../HomeSG.css";
 import { Link, useNavigate } from 'react-router-dom';
+import ModalRegister from '../../registry/registry';
 
 export const Header = () => {
     const [click, setClick] = React.useState(false);
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
+    const handleShowModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
     return (
         <>
             <Head />
@@ -20,7 +24,8 @@ export const Header = () => {
                         <li><Link to="/servicos">Contacto</Link></li>
                     </ul>
                     <div className="start_1">
-                        <div className="button">Registrarse</div>
+                        <div className="button"  onClick={handleShowModal} >Registrarse</div>
+                        <ModalRegister show={showModal} handleClose={handleCloseModal} />
                     </div>
                     <div className="start">
                         <div className="button" onClick={() => navigate('/login')}>Iniciar Sesion</div>

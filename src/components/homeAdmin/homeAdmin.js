@@ -13,7 +13,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import ListShift from '../ListShift/ListShift';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Col, Row } from 'react-bootstrap';
 
 library.add(fas);
 
@@ -33,6 +33,7 @@ function AdministratorHomepage() {
 
   const [data, setData] = useState([]);
   const [username, setUsername] = useState('Usuario');
+  const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,7 +54,7 @@ function AdministratorHomepage() {
     fetchData();
   }, []);
 
- 
+
   useEffect(() => {
     if (keycloak && keycloak.tokenParsed) {
       const usernameFromToken = keycloak.tokenParsed.preferred_username || 'Usuario';
@@ -63,7 +64,7 @@ function AdministratorHomepage() {
 
 
 
-  
+
 
   const [open, setOpen] = useState(false);
   const [mostrarTablaUsuarios, setMostrarTablaUsuarios] = useState(false);
@@ -132,7 +133,7 @@ function AdministratorHomepage() {
               <div className="flex-grow-1 py-2">
                 <Nav className="flex-column">
                   <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" onClick={handleDashboardClick}>
-                  <FontAwesomeIcon icon="fa-solid fa-user-tie"  color="7c817d" style={{ marginRight: '10px' }}  />
+                    <FontAwesomeIcon icon="fa-solid fa-user-tie" color="7c817d" style={{ marginRight: '10px' }} />
                     Atención de Turno
                   </Nav.Link>
 
@@ -178,8 +179,8 @@ function AdministratorHomepage() {
               <Dropdown>
                 <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                   <FontAwesomeIcon icon={["fas", "user-tie"]} style={{ marginRight: '10px' }} />
-                 {/* colocarlo nombre del suario  */}
-                 {username}
+                  {/* colocarlo nombre del suario  */}
+                  {username}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu align="right">
@@ -195,20 +196,42 @@ function AdministratorHomepage() {
             {mostrarTablaUsuarios ? ( // Muestra la tabla si mostrarTabla es true
               <main class="flex-grow-1 gap-4 p-4">
 
-                <div class="d-flex justify-content-center">
-                  <h1 class="font-weight-bold fs-5 text-center">Usuarios</h1>
+
+                <dIv className="d-flex align-items-center m-2">
+                  <FontAwesomeIcon icon="fa-solid fa-users" size="2x" className="me-4 " />  <h3> Usuarios</h3>
+                </dIv>
+
+
+                <div className="mb-4">
+                  <Row>
+                    <Col xs={7}></Col>
+
+                    <Col xs={5}>
+                      <div className=" m-2">
+                        <form>
+                          <i class="bi bi-search position-absolute start-0 top-50 translate-middle-y text-secondary"></i>
+                          <input class="form-control bg-white shadow-none pl-5"
+                            placeholder="Buscar usuarios por nombre, apellido, N documento"
+                            type="search"
+                            value={searchValue}
+                            onChange={e => setSearchValue(e.target.value)}
+                          />
+                        </form>
+                      </div>
+                    </Col>
+                  </Row>
+
                 </div>
 
 
                 <div class="border shadow-sm rounded">
 
-                
 
 
                   <Table>
-                  <thead className="table-info"> 
+                    <thead className="table-info">
                       <tr>
-                        <th scope="col">Id</th>
+
                         <th scope="col">Nombre</th>
                         <th scope="col">Apellido</th>
                         <th scope="col">Tipo documento</th>
@@ -219,14 +242,16 @@ function AdministratorHomepage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {data.map((item, index) => (
+                      {data.filter(item => {
+                        return item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+                          item.lastName.toLowerCase().includes(searchValue.toLowerCase()) ||
+                          item.document.toString().includes(searchValue);
+                      }).map((item, index) => (
                         <tr key={index}>
-                          <th scope="row">{item.id}</th>
                           <td>{item.name}</td>
                           <td>{item.lastName}</td>
                           <td>{item.typeDocument}</td>
                           <td>{item.document}</td>
-                          {/* <td>{item.addres}</td> */}
                           <td>{item.email}</td>
                           <td>{item.celphone}</td>
                         </tr>

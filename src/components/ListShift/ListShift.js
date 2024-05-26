@@ -5,15 +5,13 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button } from 'react-bootstrap';
-import { Row , Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 
 
 
 
 function ListShift() {
-
-
 
     const [searchValue, setSearchValue] = useState('');
     const [data, setData] = useState([]);
@@ -61,52 +59,29 @@ function ListShift() {
 
 
                 <dIv className="d-flex align-items-center m-2">
-                    <FontAwesomeIcon icon="fa fa-history" size="2x" className="me-4 " />  <h3>  Mi Historial de Turnos</h3>
+                    <FontAwesomeIcon icon="fa-solid fa-list" size="2x" className="me-4 " />  <h3> Lista de Turnos</h3>
                 </dIv>
 
-                <div>
+                <div className="mb-4">
                     <Row>
-                        <Col xs={4}>
+                        <Col xs={7}></Col>
+                        <Col xs={5}>
                             <div >
-
-                            </div>
-                        </Col>
-                    </Row>
-
-                </div>
-
-                <div className="space-y-4">
-                    <header class="d-flex align-items-center justify-content-center gap-4 border-bottom bg-gray-100 p-3" >
-                        <div class="flex-grow-1 " style={{ maxWidth: '50%' }}>
-                            <form>
-                                <div class="position-relative" style={{ maxWidth: '100%' }}>
+                                <form>
                                     <i class="bi bi-search position-absolute start-0 top-50 translate-middle-y text-secondary"></i>
                                     <input class="form-control bg-white shadow-none pl-5"
-                                        placeholder="Buscar usuarios por nombre, apellido, N docuemto"
+                                        placeholder="Buscar Turno por id turno, id usuario ,dependencia"
                                         type="search"
                                         value={searchValue}
                                         onChange={e => setSearchValue(e.target.value)}
                                     />
-                                </div>
-                            </form>
-                        </div>
-                        {/* <Dropdown> 
-                            <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-                                <FontAwesomeIcon icon={faFilter} style={{ marginRight: '10px' }} />
-                                Filtros
-                            </Dropdown.Toggle>
+                                </form>
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
 
-                            <Dropdown.Menu align="right">
-                                <Dropdown.Divider />
-                                <Dropdown.Item href="#/action-1">Configuración</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3"  >Cerrar Sesión</Dropdown.Item>
-                                <Dropdown.Divider />
-
-                            </Dropdown.Menu>
-                        </Dropdown>*/}
-
-                    </header>
-
+                <div className="space-y-4">
                     <div class="border shadow-sm rounded">
 
                         <Table>
@@ -120,16 +95,20 @@ function ListShift() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {data.map((item, index) => (
+                                {data.filter(item => {
+                                    return item.id.toString().includes(searchValue) ||
+                                        item.userId.toString().includes(searchValue) ||
+                                        item.dependence.toLowerCase().includes(searchValue.toLowerCase());
+                                }).map((item, index) => (
                                     <tr key={index}>
                                         <th scope="row">{item.id}</th>
                                         <td>{item.userId}</td>
                                         <td>{item.dependence}</td>
                                         <td>{formatDate(item.date)}</td>
                                         <td>{formatTime(item.date)}</td>
-
                                     </tr>
                                 ))}
+
                             </tbody>
                         </Table>
                     </div>

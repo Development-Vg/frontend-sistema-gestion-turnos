@@ -6,25 +6,29 @@ import Shift from "../components/Shift/createShift";
 import ReShift from "../components/CreateShift/RegistryShit";
 import Dependence from "../components/Shift/dependence";
 import HomeSG from "../components/HomeSG/HomeSG";
+import ShiftHistory from "../components/shiftHistory/shiftHistory";
+
+
 
 
 
 function AppRouter() {
-    return (
-      <Router>
-        <Routes>
-          <Route path="/login" element={<ModalRegister />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/shift" element={<Shift />} />
-          <Route path="/Reshift" element={<ReShift />} />
-          <Route path="/homeadmin" element={<HomeAdmin />} />
-          <Route path="/dependence" element={<Dependence />} />
-          <Route path="/homeSG" element={<HomeSG />} />
-          <Route path="*" element={<Navigate to="/homeSG" />} />
-        </Routes>
-      </Router>
-    );
-  }
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<ModalRegister />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/shift" element={<Shift />} />
+        <Route path="/Reshift" element={<ReShift />} />
+        <Route path="/homeadmin" element={<HomeAdmin />} />
+        <Route path="/dependence" element={<Dependence />} />
+        <Route path="/homeSG" element={<HomeSG />} />
+        <Route path="/ShiftHistory" element={<ShiftHistory/>} />
+        <Route path="*" element={<Navigate to="/homeSG" />} />
+      </Routes>
+    </Router>
+  );
+}
 
 
 

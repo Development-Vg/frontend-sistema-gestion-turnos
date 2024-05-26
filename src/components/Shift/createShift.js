@@ -3,7 +3,7 @@ import { Dropdown } from 'react-bootstrap';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
-import './Shift.css';
+// import './Shift.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button, Row, Col } from 'react-bootstrap';
 
@@ -34,14 +34,15 @@ function CreateShift({ onShowCreateShift }) {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-950" style={{ marginTop: '20px' }}>
             <div className="max-w-6xl w-full space-y-6 p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
-                <div className="space-y-2">
-                    <h1 className="font-weight-bold fs-5 text-center titlle">Crear Turno</h1>
-                </div>
+
+
+                <dIv className="d-flex align-items-center m-2">
+                    <FontAwesomeIcon icon="fa fa-calendar-plus" size="2x" className="me-4 " />  <h3> Crear Turno</h3>
+                </dIv>
 
                 <div className="space-y-4">
                     <Row>
-
-                        <Col xs={6} className=' mt-3 mb-4'></Col>
+                        <Col xs={8} className=' mt-3 mb-4'></Col>
                         <Col xs={4} className=' mt-3 mb-4'>
                             <form>
                                 <div className="position-relative" style={{ maxWidth: '100%' }}>
@@ -55,19 +56,13 @@ function CreateShift({ onShowCreateShift }) {
                                 </div>
                             </form>
                         </Col>
-                        <Col xs={2} className=' mt-3 mb-4'> <p><Dropdown>
-                            <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
-                                <FontAwesomeIcon icon={faFilter} style={{ marginRight: '10px' }} />
-                                Filtros
-                            </Dropdown.Toggle>
-                        </Dropdown></p>
-                        </Col>
 
 
                     </Row>
 
 
                     <div class="border shadow-sm rounded">
+
                         <Table>
                             <thead className="table-info">
                                 <tr>
@@ -79,6 +74,7 @@ function CreateShift({ onShowCreateShift }) {
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 {data.filter(item => {
                                     return item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
                                         item.lastName.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -93,8 +89,6 @@ function CreateShift({ onShowCreateShift }) {
                                             < Button variant="outline-warning" onClick={() => onShowCreateShift(item.id)}>
                                                 Crear Turno
                                             </ Button>
-
-                                            {/* <Button variant="outline-dark" onClick={() => onCreateShift(date)}>Crear Turno</Button> */}
                                         </td>
                                     </tr>
                                 ))}

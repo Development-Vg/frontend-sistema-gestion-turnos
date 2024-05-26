@@ -23,6 +23,7 @@ export const KeycloakProvider = ({ children }) => {
     }).catch(error => {
       console.error('Keycloak init failed', error);
     });
+    
   }, []);
 
   return (

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import './home.css';
+//import './home.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarDays, faCalendarPlus, faBell, } from '@fortawesome/free-regular-svg-icons';
-import { Nav, Collapse, Dropdown,Navbar } from 'react-bootstrap';
+import { Nav, Collapse, Dropdown, Navbar } from 'react-bootstrap';
 import { useKeycloak } from '../Keycloak/KeycloakContext';
 import CreateShift from '../Shift/createShift';
 import RegistryShit from '../CreateShift/RegistryShit';
 import Dashboard from '../Dashboard/Dashboard';
 import ListShift from '../ListShift/ListShift';
+import ShiftHistory from '../shiftHistory/shiftHistory';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
@@ -64,46 +64,27 @@ function Home() {
   const [mostrarListaTurnos, setMostrarListaTurnos] = useState(false);
   const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
   const [mostrarNuevoComponente, setMostrarNuevoComponente] = useState(false);
+  const [showShiftHistory, setshowShiftHistory] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
 
-  const handleUsuariosClick = () => {
-  
-    setMostrarCrearShift(false);
-    setMostrarListaTurnos(false);
-    setMostrarNuevoComponente(false);
-  };
-
-  const handleCrearClick = () => {
-    
-    setMostrarCrearShift(true);
-    setMostrarListaTurnos(false);
-    setMostrarNuevoComponente(false);
-  };
-
-
-
-  const handleDashboardClick = () => {
-   
-    setMostrarCrearShift(false);
-    setMostrarListaTurnos(false);
-    setMostrarNuevoComponente(false);
-  };
-
-  const handleListaClick = () => {
-  
-    setMostrarCrearShift(false);
-    setMostrarListaTurnos(true);
-    setMostrarNuevoComponente(false);
-  };
 
   const handleShowCreateShift = (userId) => {
     setSelectedUser(userId);
-
     setMostrarCrearShift(false);
     setMostrarListaTurnos(false);
     setMostrarNuevoComponente(true);
+    setshowShiftHistory(false);
   };
+
+  const handleShowShiftHistor = () => {
+    setMostrarCrearShift(false);
+    setMostrarListaTurnos(false);
+    setMostrarNuevoComponente(false);
+    setshowShiftHistory(true);
+  };
+
+
 
   return (
 
@@ -126,9 +107,9 @@ function Home() {
               </div>
 
               <div className="flex-grow-1 py-2">
-                
+
                 <Nav className="flex-column" >
-            
+
 
 
                   <Nav.Link onClick={() => setOpen(!open)} className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item">
@@ -140,13 +121,13 @@ function Home() {
                     <div id="collapseTurnos">
 
                       <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={handleShowCreateShift}>
-                        <FontAwesomeIcon icon={faCalendarPlus} color="7c817d"  style={{ marginLeft: '3px', marginRight: '11px' }} />
+                        <FontAwesomeIcon icon={faCalendarPlus} color="7c817d" style={{ marginLeft: '3px', marginRight: '11px' }} />
                         Solicitar Turno
                       </Nav.Link>
 
-                      <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={() => { setShouldUpdateTable(true); handleListaClick(); }}>
+                      <Nav.Link className="rounded-lg bg-gray-100 px-3 py-2 text-dark nav-item" href="#" onClick={() => { handleShowShiftHistor(); }}>
                         <FontAwesomeIcon icon="fa-solid fa-list" color="7c817d" style={{ marginLeft: '3px', marginRight: '11px' }} />
-                        Ver Historial
+                        Mis Turnos
                       </Nav.Link>
                     </div>
                   </Collapse>
@@ -182,16 +163,14 @@ function Home() {
               </Dropdown>
             </header>
 
-
-           {mostrarCrearShift ? (
-              // <CreateShift />
+            {mostrarCrearShift ? (
               <CreateShift onShowCreateShift={handleShowCreateShift} />
             ) : mostrarListaTurnos ? (
               <ListShift />
             ) : mostrarNuevoComponente ? (
-              // <RegistryShit /> 
               <RegistryShit userId={selectedUser} />
-
+            ) : showShiftHistory ? (
+              <ShiftHistory />
             ) : (
               <Dashboard />
             )}

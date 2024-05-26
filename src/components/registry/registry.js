@@ -1,6 +1,4 @@
 
-
-
 import './registry.css';
 import Form from 'react-bootstrap/Form';
 
@@ -103,7 +101,7 @@ function ModalRegister({ show, handleClose }) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary">cancelar</Button>
-                    <Button variant="primary">Registrars</Button>
+                    <Button variant="primary">Registrar</Button>
                 </Modal.Footer>
             </Modal>
         </div>
