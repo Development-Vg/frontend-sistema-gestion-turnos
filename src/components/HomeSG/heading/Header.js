@@ -2,8 +2,7 @@ import React from "react";
 import {Head} from "./Head";
 import "./header.css";
 import "../HomeSG.css";
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Header = () => {
     const [click, setClick] = React.useState(false);
@@ -24,12 +23,10 @@ export const Header = () => {
                         <div className="button">Registrarse</div>
                     </div>
                     <div className="start">
-                    <div className="button" onClick={() => navigate('/login')}>Iniciar Sesion</div>
+                        <div className="button" onClick={() => navigate('/login')}>Iniciar Sesion</div>
                     </div>
                 </nav>
-
             </header>
-
         </>
     );
 }
