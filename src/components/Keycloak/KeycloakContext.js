@@ -13,7 +13,7 @@ export const KeycloakProvider = ({ children }) => {
   
   useEffect(() => {
     const kc = new Keycloak({
-      url: "http://ec2-3-12-115-86.us-east-2.compute.amazonaws.com:8080/",
+      url: "http://3.12.115.86:8080/",
       realm: "TurnsManagementApp",
       clientId: "react-js-frond-end-1"
     });
