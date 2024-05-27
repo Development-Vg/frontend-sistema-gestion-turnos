@@ -63,12 +63,7 @@ i {
   box-sizing: border-box;
 }
 
-img {
-  width: 35px;
-  position: absolute;
-  top: 30px;
-  left: 30px;
-}
+
 
 .input-box header {
   font-weight: 700;
