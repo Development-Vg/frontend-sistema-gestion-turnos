@@ -59,7 +59,7 @@ function ShiftHistory({ userId }) {
             };
 
             const r = await axios.patch(`${backendUrl}/turnos/updateStatus/${userId}`, {}, config);
-            toast.success("turno cancelada"/*r.data */);
+            toast.success("turno cancelado"/*r.data */);
             fetchData(); 
         } catch (error) {
             console.error('Error al cancelar el turno', error);
