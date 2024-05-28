@@ -21,24 +21,12 @@ function Login() {
                     headers: { Authorization: `Bearer ${accessToken}` }
                 };
 
-               /* try {
-                    const response = await axios.get(`${process.env.REACT_APP_BCKEND}/listUsers/login`, config);
-                    console.log("el rol es: ", response);
-                } catch (error) {
-                    console.error('Error al obtener el rol', error);
-                }*/
-
-                /*const roles = keycloak.tokenParsed?.realm_access?.roles || [];
-                const isAdmin = roles.includes('admin');
-                setNavigation(isAdmin ? <Navigate to="/homeadmin" /> : <Navigate to="/home" />);*/
-
                 try{
                     console.log("el emal enviado es: ", email)
                     const response = await axios.get(`${process.env.REACT_APP_BCKEND}/listUsers/login?email=${email}`, config);
                     const userId = response.data;
                     console.log("es la verdad id : ", userId)
 
-                    //direccion 
                     const roles = keycloak.tokenParsed?.realm_access?.roles || [];
                     const isAdmin = roles.includes('admin');
                     setNavigation(isAdmin ? <Navigate to="/homeadmin" /> : <Navigate to={`/home?userId=${userId}`} />);

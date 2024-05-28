@@ -1,4 +1,3 @@
-// KeycloakContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Keycloak from 'keycloak-js';
 
@@ -9,9 +8,8 @@ export const useKeycloak = () => useContext(KeycloakContext);
 
 export const KeycloakProvider = ({ children }) => {
   const [keycloak, setKeycloak] = useState(null);
-  const [authenticated, setAuthenticated] = useState(false);
   
-  useEffect(() => {
+    useEffect(() => {
     const kc = new Keycloak({
       url: "http://ec2-3-12-115-86.us-east-2.compute.amazonaws.com:8080/",
       realm: "TurnsManagementApp",
