@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
+import { useKeycloak } from '../Keycloak/KeycloakContext';
 
 
 
@@ -15,6 +16,7 @@ function ListShift() {
 
     const [searchValue, setSearchValue] = useState('');
     const [data, setData] = useState([]);
+    const keycloak = useKeycloak();
 
 
     // Función para formatear la fecha
@@ -37,7 +39,11 @@ function ListShift() {
         }
 
         try {
-            const response = await axios.get(`${backendUrl}/turnosList/listAll`);
+            const config = {
+                headers: { Authorization: `Bearer ${keycloak.token}` },
+            };
+
+            const response = await axios.get(`${backendUrl}/turnosList/listAll`,config);
             setData(response.data);
             console.log("lista de turnos:", response.data)
 

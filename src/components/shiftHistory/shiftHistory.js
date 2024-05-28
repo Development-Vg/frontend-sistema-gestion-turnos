@@ -6,47 +6,69 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
+import { useKeycloak } from '../Keycloak/KeycloakContext';
 
 
 
 
 
-function ShiftHistory() {
+function ShiftHistory({ userId }) {
 
     const [searchValue, setSearchValue] = useState('');
     const [data, setData] = useState([]);
+    const keycloak = useKeycloak();
 
 
-    // Función para formatear la fecha
+    //  formatear la fecha
     const formatDate = (dateString) => {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
-    // Función para formatear la hora en formato de 24 horas
+    //  formatear la hora en formato de 24 horas
     const formatTime = (dateString) => {
         const options = { hour: '2-digit', minute: '2-digit', hour12: false };
         return new Date(dateString).toLocaleTimeString(undefined, options);
     };
+    const backendUrl = process.env.REACT_APP_BCKEND;
 
     const fetchData = async () => {
-        const backendUrl = process.env.REACT_APP_BCKEND;
+
         if (!backendUrl) {
             console.error('REACT_APP_BCKEND está indefinido');
             return;
         }
-
         try {
-            const response = await axios.get(`${backendUrl}/turnosList/listAll`);
+            const config = {
+                headers: { Authorization: `Bearer ${keycloak.token}` }
+            };
+            const response = await axios.get(`${backendUrl}/turnosList/shiftByUserId/${userId}`, config);
             setData(response.data);
-            console.log("lista de turnos:", response.data)
-
-
-            console.log("respuetsa tabla de turnos :", response);
+            console.log(" mi hisotial de turnos:", response.data)
         } catch (error) {
             console.error('Error al cargar los datos', error);
         }
     };
+
+    const handleRemoveItem = async (itemId) => {
+        try {
+            const config = {
+                headers: { Authorization: `Bearer ${keycloak.token}` },
+                params: { idTurn: itemId }
+            };
+
+            console.log("El parámetro que estoy enviando para eliminar es:", config.params, "y el userId es:", userId);
+
+           const r = await axios.patch(`${backendUrl}/turnos/updateStatus/${userId}`, {}, config);
+           alert(r.data)
+            
+            //fetchData();
+           // console.log("Se quitó el item con ID:", itemId);
+        } catch (error) {
+            console.error('Error al quitar el item', error);
+        }
+    };
+
 
     useEffect(() => {
         fetchData();
@@ -56,7 +78,6 @@ function ShiftHistory() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-950" style={{ marginTop: '20px' }}>
             <div className="max-w-6xl w-full space-y-6 p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
-
 
                 <dIv className="d-flex align-items-center m-2">
                     <FontAwesomeIcon icon="fa fa-history" size="2x" className="me-4 " />  <h3> Mis Turnos</h3>
@@ -110,7 +131,10 @@ function ShiftHistory() {
                                         <td>{item.dependence}</td>
                                         <td>{formatDate(item.date)}</td>
                                         <td>{formatTime(item.date)}</td>
-                                        <td><button>quitar</button></td>
+
+                                        <Button variant="outline-danger" onClick={() => handleRemoveItem(item.id)}>
+                                            Quitar
+                                        </ Button>
                                     </tr>
                                 ))}
                             </tbody>

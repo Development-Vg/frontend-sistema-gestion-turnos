@@ -5,12 +5,14 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import AvailableDatesTable from './AvailableDatesTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useKeycloak } from '../Keycloak/KeycloakContext';
 
-function RegistryShift({ userId }) {
+function RegistryShift({userId}) {
     const [availableDates, setAvailableDates] = useState([]);
     const [selectedUser, setSelectedUser] = useState(userId); // Usuario por defecto
     const [selectedDependence, setSelectedDependence] = useState(''); // Dependencia por defecto vacía
     const [selectedDate, setSelectedDate] = useState(null);
+    const keycloak = useKeycloak();
 
     useEffect(() => {
         if (selectedDependence && selectedDate) {
@@ -34,15 +36,17 @@ function RegistryShift({ userId }) {
         console.log("la dependencia es:", dependence, " la fecha que envio: ", formattedDate)
 
         try {
-            console.log("de ", dependence)
-            const response = await axios.get(`${backendUrl}/turnosList/listAvailableShifts`, { params: { dependence, date: formattedDate } });
+            const config = {
+                headers: { Authorization: `Bearer ${keycloak.token}` },
+                params: { userId, dependence, date: formattedDate }
+            };
+            console.log("Parámetros de envío para traer lista de fechas :", config.params);
+
+            const response = await axios.get(`${backendUrl}/turnosList/listAvailableShifts`, config);
             setAvailableDates(response.data);
         } catch (error) {
             console.error('Error al obtener fechas disponibles', error);
         }
-
-
-
 
 
     };
@@ -59,9 +63,6 @@ function RegistryShift({ userId }) {
         setSelectedDate(date);
     };
 
-
-
-
     async function handleConfirmShiftClick(date) {
         if (!selectedUser || !selectedDependence || !date) {
             alert('Por favor selecciona una dependencia y fecha');
@@ -77,7 +78,11 @@ function RegistryShift({ userId }) {
         };
 
         try {
-            const response = await axios.post(`${backendUrl}/turnos/create`, data);
+            const config = {
+                headers: { Authorization: `Bearer ${keycloak.token}` }
+            };
+            console.log("datos enviados para crear turno : ", data)
+            const response = await axios.post(`${backendUrl}/turnos/create`, data,config);
             alert('Turno creado exitosamente');
         } catch (error) {
             console.error(error);
@@ -116,10 +121,10 @@ function RegistryShift({ userId }) {
                             <label htmlFor="clerk" className="form-label">Dependencia</label>
                             <select id="clerk" className="form-select" onChange={(e) => handleDependenceSelect(e.target.value)} value={selectedDependence}>
                                 <option value="">Seleccionar Dependencia</option>
-                                <option value="Atención al Cliente">Atención al Cliente</option>
-                                <option value="Caja">Caja</option>
-                                <option value="Créditos y Préstamos">Créditos y Préstamos</option>
-                                <option value="Asesoría Financiera">Asesoría Financiera</option>
+                                <option value="Cita Médica">Cita Médica</option>
+                                <option value="Cita Odontológica">Cita Odontológica</option>
+                                <option value="Consulta Psicológica">Consulta Psicológica</option>
+                                <option value="Consulta en Enfermería">Consulta en Enfermería</option>
                             </select>
                         </div>
                     </div>

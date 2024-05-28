@@ -12,6 +12,7 @@ import ListShift from '../ListShift/ListShift';
 import ShiftHistory from '../shiftHistory/shiftHistory';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -21,16 +22,21 @@ library.add(fas);
 function Home() {
 
   const keycloak = useKeycloak();
+  const [data, setData] = useState([]);
+  const [username, setUsername] = useState('Usuario');
+  const [userId, setUserId] = useState(null);
+  const location = useLocation();
+  const [open, setOpen] = useState(false);
+  const [mostrarCrearShift, setMostrarCrearShift] = useState(false);
+  const [mostrarListaTurnos, setMostrarListaTurnos] = useState(false);
+  const [mostrarNuevoComponente, setMostrarNuevoComponente] = useState(false);
+  const [showShiftHistory, setshowShiftHistory] = useState(false);
 
   const handleLogout = async () => {
     if (keycloak) {
       await keycloak.logout({ redirectUri: 'http://localhost:3000/' });
-      // Aquí puedes actualizar el estado de la autenticación en tu aplicación si es necesario
     }
   };
-
-  const [data, setData] = useState([]);
-  const [username, setUsername] = useState('Usuario');
 
 
   useEffect(() => {
@@ -59,25 +65,13 @@ function Home() {
     }
   }, [keycloak]);
 
-  const [open, setOpen] = useState(false);
-  const [mostrarCrearShift, setMostrarCrearShift] = useState(false);
-  const [mostrarListaTurnos, setMostrarListaTurnos] = useState(false);
-  const [shouldUpdateTable, setShouldUpdateTable] = useState(false);
-  const [mostrarNuevoComponente, setMostrarNuevoComponente] = useState(false);
-  const [showShiftHistory, setshowShiftHistory] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const userIdFromParams = params.get('userId');
+    setUserId(userIdFromParams);
+}, [location]);
 
 
-
-
-  const handleListaClick = () => {
-    setMostrarCrearShift(false);
-    setMostrarListaTurnos(true);
-    setMostrarNuevoComponente(false);
-    setshowShiftHistory(false);
-  };
-
-  
   const handleDashboardClick = () => {
     setMostrarCrearShift(false);
     setMostrarListaTurnos(false);
@@ -85,8 +79,7 @@ function Home() {
     setshowShiftHistory(false);
   };
 
-  const handleShowCreateShift = (userId) => {
-    setSelectedUser(userId);
+  const handleShowCreateShift = () => {
     setMostrarCrearShift(false);
     setMostrarListaTurnos(false);
     setMostrarNuevoComponente(true);
@@ -110,7 +103,6 @@ function Home() {
               <div class="d-flex align-items-center border-bottom px-5" style={{ height: '70px' }} >
 
                 <a href="#" class="d-flex align-items-center gap-2 font-semibold text-decoration-none">
-                  {/* <FontAwesomeIcon icon={faBell} style={{ marginRight: '10px' }} /> */}
                   <span class="home"  onClick={handleDashboardClick}>Dashboard</span>
                 </a>
 
@@ -182,9 +174,9 @@ function Home() {
             ) : mostrarListaTurnos ? (
               <ListShift />
             ) : mostrarNuevoComponente ? (
-              <RegistryShit userId={selectedUser} />
+             <RegistryShit userId={userId} />
             ) : showShiftHistory ? (
-              <ShiftHistory />
+              <ShiftHistory userId={userId} />
             ) : (
               <Dashboard />
             )}
@@ -195,7 +187,6 @@ function Home() {
             <i class="bi bi-plus"></i>
             <span class="visually-hidden">Create Shift</span>
           </button>
-          {/* Drawer content */}
         </div>
       </div>
     </div>

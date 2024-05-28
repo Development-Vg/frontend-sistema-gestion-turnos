@@ -6,11 +6,13 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 // import './Shift.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button, Row, Col } from 'react-bootstrap';
+import { useKeycloak } from '../Keycloak/KeycloakContext';
 
 
 function CreateShift({ onShowCreateShift }) {
     const [data, setData] = useState([]);
     const [searchValue, setSearchValue] = useState('');
+    const keycloak = useKeycloak();
 
     // Carga usuarios
     useEffect(() => {
@@ -20,9 +22,13 @@ function CreateShift({ onShowCreateShift }) {
                 console.error('REACT_APP_BCKEND está indefinido');
                 return;
             }
-
+            
             try {
-                const response = await axios.get(`${backendUrl}/listUsers/listAll`);
+                const config = {
+                    headers: { Authorization: `Bearer ${keycloak.token}` }
+                };
+                
+                const response = await axios.get(`${backendUrl}/listUsers/listAll`,config);
                 setData(response.data);
             } catch (error) {
                 console.error('Error al cargar los datos', error);
@@ -74,7 +80,7 @@ function CreateShift({ onShowCreateShift }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                                 {data.filter(item => {
                                     return item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
                                         item.lastName.toLowerCase().includes(searchValue.toLowerCase()) ||
