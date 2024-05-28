@@ -6,8 +6,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import AvailableDatesTable from './AvailableDatesTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useKeycloak } from '../Keycloak/KeycloakContext';
+import { toast } from 'sonner'
 
-function RegistryShift({userId}) {
+function RegistryShift({ userId }) {
     const [availableDates, setAvailableDates] = useState([]);
     const [selectedUser, setSelectedUser] = useState(userId); // Usuario por defecto
     const [selectedDependence, setSelectedDependence] = useState(''); // Dependencia por defecto vacía
@@ -22,11 +23,7 @@ function RegistryShift({userId}) {
 
     const fetchAvailableDates = async (dependence, date) => {
         if (!dependence || !date) return;
-
-
         const formattedDate = date.toString().split('(')[0].trim();
-
-
         const backendUrl = process.env.REACT_APP_BCKEND;
         if (!backendUrl) {
             console.error('REACT_APP_BCKEND está indefinido');
@@ -45,8 +42,10 @@ function RegistryShift({userId}) {
             const response = await axios.get(`${backendUrl}/turnosList/listAvailableShifts`, config);
             setAvailableDates(response.data);
         } catch (error) {
-            console.error('Error al obtener fechas disponibles', error);
+            toast.error("Error al obtener fechas disponibles");
         }
+
+
 
 
     };
@@ -81,13 +80,15 @@ function RegistryShift({userId}) {
             const config = {
                 headers: { Authorization: `Bearer ${keycloak.token}` }
             };
-            console.log("datos enviados para crear turno : ", data)
-            const response = await axios.post(`${backendUrl}/turnos/create`, data,config);
-            alert('Turno creado exitosamente');
+            const response = await axios.post(`${backendUrl}/turnos/create`, data, config);
+            toast.success("Turno creado correctamente");
+            fetchAvailableDates(selectedDependence, selectedDate);
+
         } catch (error) {
             console.error(error);
-            alert('Error al crear el turno');
+            toast.error("Error al crear turno ");
         }
+   
     }
 
     // fecha actual
@@ -103,16 +104,16 @@ function RegistryShift({userId}) {
     return (
         <Container>
             <Row>
-            <Col xs={12} className=" mt-4 mb-4">
-            <dIv className="d-flex align-items-center">
-            <FontAwesomeIcon icon="fa-solid fa-calendar-plus"   size="2x" className="me-4"/>  <h3> Solicitud de Turnos</h3>
-            </dIv>   
-            </Col>
-                
+                <Col xs={12} className=" mt-4 mb-4">
+                    <dIv className="d-flex align-items-center">
+                        <FontAwesomeIcon icon="fa-solid fa-calendar-plus" size="2x" className="me-4" />  <h3> Solicitud de Turnos</h3>
+                    </dIv>
+                </Col>
+
                 <Col xs={6}>
                     <div className="mb-3 justify-content-center">
                         <label htmlFor="date" className="form-label">Seleccionar Fecha</label><br />
-                        <DatePicker id="date" selected={selectedDate} onChange={handleDateChange}   autoComplete="off" className="form-control" minDate={today} maxDate={lastDayOfNextMonth} />
+                        <DatePicker id="date" selected={selectedDate} onChange={handleDateChange} autoComplete="off" className="form-control" minDate={today} maxDate={lastDayOfNextMonth} />
                     </div>
                 </Col>
                 <Col xs={6}>

@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button } from 'react-bootstrap';
 import { Row, Col } from 'react-bootstrap';
 import { useKeycloak } from '../Keycloak/KeycloakContext';
+import { toast } from 'sonner'
 
 
 
@@ -57,15 +58,12 @@ function ShiftHistory({ userId }) {
                 params: { idTurn: itemId }
             };
 
-            console.log("El parámetro que estoy enviando para eliminar es:", config.params, "y el userId es:", userId);
-
-           const r = await axios.patch(`${backendUrl}/turnos/updateStatus/${userId}`, {}, config);
-           alert(r.data)
-            
-            //fetchData();
-           // console.log("Se quitó el item con ID:", itemId);
+            const r = await axios.patch(`${backendUrl}/turnos/updateStatus/${userId}`, {}, config);
+            toast.success("turno cancelada"/*r.data */);
+            fetchData(); 
         } catch (error) {
-            console.error('Error al quitar el item', error);
+            console.error('Error al cancelar el turno', error);
+            toast.error("error al cancelar turno");
         }
     };
 
@@ -123,18 +121,27 @@ function ShiftHistory({ userId }) {
                             </thead>
                             <tbody>
                                 {data.filter(item => {
-                                    return item.id.toString().includes(searchValue) ||
+                                    const matchesSearch = item.id.toString().includes(searchValue) ||
                                         item.dependence.toLowerCase().includes(searchValue.toLowerCase());
+                                    const hasValidStatus = item.status === 'ACTIVE' || item.status === 'REALIZADO'; //INACTIVE
+                                    return matchesSearch && hasValidStatus;
                                 }).map((item, index) => (
                                     <tr key={index}>
                                         <th scope="row">{item.id}</th>
                                         <td>{item.dependence}</td>
                                         <td>{formatDate(item.date)}</td>
                                         <td>{formatTime(item.date)}</td>
-
-                                        <Button variant="outline-danger" onClick={() => handleRemoveItem(item.id)}>
-                                            Quitar
-                                        </ Button>
+                                        <td>
+                                            {item.status === 'ACTIVE' && (
+                                                <Button
+                                                    variant="outline-danger"
+                                                    onClick={() => handleRemoveItem(item.id)}
+                                                    className="mb-2 mt-2"
+                                                >
+                                                    Cancelar
+                                                </Button>
+                                            )}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

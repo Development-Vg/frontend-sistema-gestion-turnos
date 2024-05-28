@@ -239,9 +239,13 @@ function AdministratorHomepage() {
                     </thead>
                     <tbody>
                       {data.filter(item => {
-                        return item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-                          item.lastName.toLowerCase().includes(searchValue.toLowerCase()) ||
-                          item.document.toString().includes(searchValue);
+                        const name = item.name?.toLowerCase() || '';
+                        const lastName = item.lastName?.toLowerCase() || '';
+                        const document = item.document?.toString() || '';
+
+                        return name.includes(searchValue.toLowerCase()) ||
+                          lastName.includes(searchValue.toLowerCase()) ||
+                          document.includes(searchValue);
                       }).map((item, index) => (
                         <tr key={index}>
                           <td>{item.name}</td>

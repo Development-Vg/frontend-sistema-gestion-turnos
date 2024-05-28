@@ -22,13 +22,13 @@ function CreateShift({ onShowCreateShift }) {
                 console.error('REACT_APP_BCKEND está indefinido');
                 return;
             }
-            
+
             try {
                 const config = {
                     headers: { Authorization: `Bearer ${keycloak.token}` }
                 };
-                
-                const response = await axios.get(`${backendUrl}/listUsers/listAll`,config);
+
+                const response = await axios.get(`${backendUrl}/listUsers/listAll`, config);
                 setData(response.data);
             } catch (error) {
                 console.error('Error al cargar los datos', error);
@@ -80,11 +80,14 @@ function CreateShift({ onShowCreateShift }) {
                                 </tr>
                             </thead>
                             <tbody>
-
                                 {data.filter(item => {
-                                    return item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-                                        item.lastName.toLowerCase().includes(searchValue.toLowerCase()) ||
-                                        item.document.toString().toLowerCase().includes(searchValue.toLowerCase());
+                                    const name = item.name?.toLowerCase() || '';
+                                    const lastName = item.lastName?.toLowerCase() || '';
+                                    const document = item.document?.toString().toLowerCase() || '';
+
+                                    return name.includes(searchValue.toLowerCase()) ||
+                                        lastName.includes(searchValue.toLowerCase()) ||
+                                        document.includes(searchValue.toLowerCase());
                                 }).map((item, index) => (
                                     <tr key={index}>
                                         <th scope="row">{item.id}</th>
@@ -92,9 +95,9 @@ function CreateShift({ onShowCreateShift }) {
                                         <td>{item.lastName}</td>
                                         <td>{item.document}</td>
                                         <td>
-                                            < Button variant="outline-warning" onClick={() => onShowCreateShift(item.id)}>
+                                            <Button variant="outline-warning" onClick={() => onShowCreateShift(item.id)}>
                                                 Crear Turno
-                                            </ Button>
+                                            </Button>
                                         </td>
                                     </tr>
                                 ))}

@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
+import { toast } from 'sonner'
 
 
 
@@ -39,10 +40,13 @@ function ModalRegister({ show, handleClose }) {
         console.log("envio: ", formData);
         try {
             const r = await axios.post(`${backendUrl}/users/create`, formData);
-            alert(r.data)
+            toast.success("registro con exito"/* r.data */);
+
 
         } catch (error) {
-            alert('Error al registrar usuario:',error);
+            console.log('Error al registrar usuario:', error);
+            toast.error("Error al registrar usuario");
+
         }
     };
 
@@ -71,11 +75,11 @@ function ModalRegister({ show, handleClose }) {
                                 </Form.Group>
                             </div>
 
-                        
+
 
                             <Col xs={6} className='group mb-4'>
                                 <Form.Group controlId="lastName">
-                                    <Form.Control type="text" placeholder=" " className="ctom-imput" onChange={handleChange}/>
+                                    <Form.Control type="text" placeholder=" " className="ctom-imput" onChange={handleChange} />
                                     <Form.Label>Apellido</Form.Label>
                                 </Form.Group>
                             </Col>
@@ -91,8 +95,8 @@ function ModalRegister({ show, handleClose }) {
 
 
                             <Col xs={12} className='group mb-4'>
-                                <Form.Group controlId="document"> 
-                                    <Form.Control type="text" placeholder="" className="ctom-imput" required autoComplete="off"  onChange={handleChange}/>
+                                <Form.Group controlId="document">
+                                    <Form.Control type="text" placeholder="" className="ctom-imput" required autoComplete="off" onChange={handleChange} />
                                     <Form.Label>Numero de Documento</Form.Label>
                                 </Form.Group>
 
@@ -100,7 +104,7 @@ function ModalRegister({ show, handleClose }) {
 
                             <Col xs={12} className='group mb-4'>
                                 <Form.Group controlId="celphone">
-                                    <Form.Control type="text" placeholder="" className="ctom-imput" required autoComplete="off"  onChange={handleChange}/>
+                                    <Form.Control type="text" placeholder="" className="ctom-imput" required autoComplete="off" onChange={handleChange} />
                                     <Form.Label>Numero de celular</Form.Label>
                                 </Form.Group>
                             </Col>
@@ -108,14 +112,14 @@ function ModalRegister({ show, handleClose }) {
 
                             <Col xs={12} className='group mb-4'>
                                 <Form.Group controlId="email">
-                                    <Form.Control type="email" placeholder="" className="ctom-imput" required onChange={handleChange}/>
+                                    <Form.Control type="email" placeholder="" className="ctom-imput" required onChange={handleChange} />
                                     <Form.Label>Correo electronico</Form.Label>
                                 </Form.Group>
                             </Col>
 
                             <Col xs={12} className='group mb-4'>
                                 <Form.Group controlId="addres">
-                                    <Form.Control type="text" placeholder=""  onChange={handleChange} />
+                                    <Form.Control type="text" placeholder="" onChange={handleChange} />
                                     <Form.Label>Direccion de localdiad</Form.Label>
                                 </Form.Group>
                             </Col>
@@ -129,7 +133,7 @@ function ModalRegister({ show, handleClose }) {
 
                             <Col xs={6} className='group mb-4'>
                                 <Form.Group controlId="vali_password">
-                                    <Form.Control type="password" placeholder="" className="ctom-imput" required  onChange={handleChange}/>
+                                    <Form.Control type="password" placeholder="" className="ctom-imput" required onChange={handleChange} />
                                     <Form.Label>Validación contraseña</Form.Label>
                                 </Form.Group>
                             </Col>
